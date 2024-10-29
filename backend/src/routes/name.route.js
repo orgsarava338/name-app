@@ -14,5 +14,4 @@ nameRouter.post('/', verifyToken, authorizeRoles('ADMIN'), createName);
 nameRouter.put('/:id', verifyToken, authorizeRoles('ADMIN'), updateName);
 nameRouter.delete('/:id', verifyToken, authorizeRoles('ADMIN'), deleteName);
 
-
 export default nameRouter;

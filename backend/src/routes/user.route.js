@@ -19,5 +19,4 @@ userRouter.get('/:id_username', authorizeRoles('ADMIN'), getUser);
 userRouter.put('/:id_username', authorizeRoles('ADMIN'), updateUser);
 userRouter.delete('/:id_username', authorizeRoles('ADMIN'), deleteUser);
 
-
 export default userRouter;
