@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 export async function register(req, res) {
-    const {username, email, password, role = 'USER'} = req.body;
+    const {username, password, role = 'USER'} = req.body;
     
     try{
         const hashedPassword = await bycrypt.hash(password, 10);
@@ -13,8 +13,7 @@ export async function register(req, res) {
 
         res.status(201).json({message: `user registered with username as ${username}`});
     } catch(error) {
-        console.error(`User not registered. Error : ${error.message}`, error);
-        res.status(500).json({message: `user not registered`});
+        res.status(400).json({message: 'user not registered', error: error.message});
     }
 
 }
@@ -24,14 +23,14 @@ export async function login(req, res) {
         
         const {username, password} = req.body;
 
-        const user = User.findOne({username});
+        const user = await User.findOne({username});
         if(!user) throw new Error('user not found');
 
-        const isMatch = await bycrypt.compare(password, hashedPassword);
+        const isMatch = await bycrypt.compare(password, user.password);
         if(!isMatch) return res.status(400).json({message: 'Invalid Credential'});
 
         const token = jwt.sign(
-            { id: user._id, username: username, role: user.role }, 
+            { username: username, role: user.role }, 
             process.env.JWT_SECRET,
             { expiresIn: '1d' }
         );
@@ -39,11 +38,10 @@ export async function login(req, res) {
         res.status(200).json({token, message: 'user logged in'});
 
     } catch (error) {
-        console.error(`User not able to login. Error : ${error.message}`, error);
-        res.status(500).json({message: `user not logged in`});
+        res.status(400).json({message: 'user not able to login', error: error.message});
     }
 }
 
 export async function logoff(req, res) {
-    throw new Error(`implement ${this.name}`);
+    throw new Error('implement');
 }
