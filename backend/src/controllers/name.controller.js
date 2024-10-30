@@ -1,4 +1,4 @@
-import Name from "../models/Name";
+import Name from "../models/Name.js";
 
 export async function createName(req, res) {
     const { name, description, origin, gender } = req.body;
