@@ -3,23 +3,31 @@ import mongoose from "mongoose";
 const nameSchema = new mongoose.Schema({
     name: {
         type : String,
-        required: true
+        required: true,
+    },
+
+    slug: {
+        type: String,
+        required: true,
+        unique: true
     },
 
     description : {
         type: String,
         required : true
     },
-
-    image : {
-        type: String
-    },
     
     gender: {
-        type: String
+        type: String,
+        required: true
     },
 
     origin: {
+        type: String,
+        required: true
+    },
+
+    image : {
         type: String
     }
 
