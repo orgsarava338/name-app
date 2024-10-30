@@ -18,9 +18,9 @@ await connectToDatabase();
 app.use(express.json());
 
 /** ROUTERS */
-app.use('api/auth', authRouter);
-app.use('api/user', userRouter);
-app.use('api/name', nameRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+app.use('/api/name', nameRouter);
 
 /** START THE SERVER */
 app.listen(process.env.PORT, async () =>  {
