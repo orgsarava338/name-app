@@ -14,7 +14,7 @@ export async function verifyToken(req, res, next) {
         next();
     } catch (error) {
         console.error(error);
-        res.status(400).json({message: 'token not valid'});
+        res.status(400).json({message: 'Token not verified', error: error.message});
     }
 }
 
