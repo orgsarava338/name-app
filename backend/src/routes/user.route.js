@@ -1,6 +1,6 @@
 import express from "express";
 
-import { authorizeRoles, verifyToken } from "../middlewares/auth.middleware.js";
+import { verifyToken, authorizeRoles } from '../middlewares/auth.middleware.js'
 import { createUser, deleteUser, getAllUsers, getUser, updateUser } from "../controllers/user.controller.js";
 
 const userRouter = express.Router();
@@ -9,14 +9,14 @@ const userRouter = express.Router();
 userRouter.use(verifyToken);
 
 /** USER */
-userRouter.put('/:id_username', updateUser);
-userRouter.delete('/:id_username', deleteUser);
+userRouter.put('/:username', updateUser);
+userRouter.delete('/:username', deleteUser);
 
 /** ADMIN */
-userRouter.get('/', authorizeRoles('ADMIN'), getAllUsers);
 userRouter.post('/', authorizeRoles('ADMIN'), createUser);
-userRouter.get('/:id_username', authorizeRoles('ADMIN'), getUser);
-userRouter.put('/:id_username', authorizeRoles('ADMIN'), updateUser);
-userRouter.delete('/:id_username', authorizeRoles('ADMIN'), deleteUser);
+userRouter.get('/', authorizeRoles('ADMIN'), getAllUsers);
+userRouter.get('/:username', authorizeRoles('ADMIN'), getUser);
+userRouter.put('/:username', authorizeRoles('ADMIN'), updateUser);
+userRouter.delete('/:username', authorizeRoles('ADMIN'), deleteUser);
 
 export default userRouter;
