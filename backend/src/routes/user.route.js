@@ -8,10 +8,6 @@ const userRouter = express.Router();
 /** MIDDLEWARES */
 userRouter.use(verifyToken);
 
-/** USER */
-userRouter.put('/:username', updateUser);
-userRouter.delete('/:username', deleteUser);
-
 /** ADMIN */
 userRouter.post('/', authorizeRoles('ADMIN'), createUser);
 userRouter.get('/', authorizeRoles('ADMIN'), getAllUsers);
