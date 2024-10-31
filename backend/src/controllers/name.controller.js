@@ -23,7 +23,7 @@ export async function getAllNames(req, res) {
 
 export async function getName(req, res) {
     try {
-        const _name = await Name.findOne({_id: req.params.id});
+        const _name = await Name.findById({_id: req.params.id});
         res.status(200).json({message: 'name found', data: _name});
     } catch (error) {
         console.error(error);
@@ -33,7 +33,12 @@ export async function getName(req, res) {
 
 export async function updateName(req, res) {
     try {
-        await Name.findOneAndUpdate({_id: req.params.id}, req.body);
+
+        const {name, ...request} = req.body;
+
+        if(name) throw new Error('name field not allowed to be modified. If required, Please try to create a new name');
+
+        await Name.findByIdAndUpdate({_id: req.params.id}, request);
         res.status(200).json({message: 'name updated'});
     } catch (error) {
         console.error(error);
@@ -43,7 +48,7 @@ export async function updateName(req, res) {
 
 export async function deleteName(req, res) {
     try {
-        await Name.deleteOne({_id: req.params.id});
+        await Name.findByIdAndDelete({_id: req.params.id});
         res.status(200).json({message: 'name deleted'});
     } catch (error) {
         console.error(error);
