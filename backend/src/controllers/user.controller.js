@@ -34,17 +34,6 @@ export async function getUser(req, res) {
     }
 }
 
-export async function updateUser(req, res) {
-    try {
-        const {password, role, ...request} = req.body;
-
-        await User.findOneAndUpdate({username: req.params.username}, request);
-        res.status(200).json({message: 'user updated'});
-    } catch (error) {
-        res.status(400).json({message: 'user not updated', error: error.message});
-    }
-}
-
 export async function deleteUser(req, res) {
     try {
         await User.findOneAndDelete({username: req.params.username});
