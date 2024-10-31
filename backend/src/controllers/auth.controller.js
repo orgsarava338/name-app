@@ -1,4 +1,4 @@
-import bycrypt from 'bcryptjs';
+import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import User from '../models/User.js';
@@ -7,7 +7,7 @@ export async function register(req, res) {
     const {username, password, role = 'USER'} = req.body;
     
     try{
-        const hashedPassword = await bycrypt.hash(password, 10);
+        const hashedPassword = await bcryptjs.hash(password, 10);
         const user = new User({username, role,  password: hashedPassword});
         await user.save();
 
