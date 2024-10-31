@@ -26,7 +26,7 @@ export async function login(req, res) {
         const user = await User.findOne({username});
         if(!user) throw new Error('user not found');
 
-        const isMatch = await bycrypt.compare(password, user.password);
+        const isMatch = await bcryptjs.compare(password, user.password);
         if(!isMatch) return res.status(400).json({message: 'Invalid Credential'});
 
         const token = jwt.sign(
