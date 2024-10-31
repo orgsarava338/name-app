@@ -19,8 +19,8 @@ export async function verifyToken(req, res, next) {
 }
 
 export function authorizeRoles(...roles) {
-    return (req, res, next) => {
-        if(!roles.includes(req.user.role)) return res.status(403).json({message: 'Access Denied.'});
+    return async (req, res, next) => {
+        if(!roles.includes(req.user.role)) return res.status(403).json({message: "Access Denied. you don't have access"});
         next();
     }
 }
