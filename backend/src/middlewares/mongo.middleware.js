@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export function isValidMongooseId(req, res, next) {
+export function verifyId(req, res, next) {
     try{
         if(req.params.id && !mongoose.isValidObjectId(req.params.id)) 
             throw new Error("id not valid");
