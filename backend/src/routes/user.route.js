@@ -16,7 +16,7 @@ userRouter.delete('/:username', deleteUser);
 userRouter.post('/', authorizeRoles('ADMIN'), createUser);
 userRouter.get('/', authorizeRoles('ADMIN'), getAllUsers);
 userRouter.get('/:username', authorizeRoles('ADMIN'), getUser);
-userRouter.put('/:username', authorizeRoles('ADMIN'), updateUser);
+// userRouter.put('/:username', authorizeRoles('ADMIN'), updateUser);
 userRouter.delete('/:username', authorizeRoles('ADMIN'), deleteUser);
 
 export default userRouter;
