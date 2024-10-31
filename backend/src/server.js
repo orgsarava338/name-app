@@ -6,6 +6,7 @@ import { connectToDatabase } from './config/db.js';
 import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
 import nameRouter from './routes/name.route.js';
+import { requestLogging } from './middlewares/logging.middleware.js';
 
 dotenv.config();
 
@@ -16,6 +17,9 @@ await connectToDatabase();
 
 /** CONFIGURATIONS */
 app.use(express.json());
+
+/** MIDDLEWARES */
+app.use(requestLogging);
 
 /** ROUTERS */
 app.use('/api/auth', authRouter);
