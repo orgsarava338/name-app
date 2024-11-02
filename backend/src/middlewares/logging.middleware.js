@@ -1,4 +1,4 @@
 export async function requestLogging(req, res, next) {
-    console.log(`[TIME] ${new Date().toLocaleString()} [PROTOCOL] ${req.protocol} [REQ] ${req.method} [PATH] ${req.path}`);
+    console.log(`{REQ} [TIME] ${new Date().toLocaleString()} [PROTOCOL] ${req.protocol} [METHOD] ${req.method} [PATH] ${req.path}`);
     next();
 }
