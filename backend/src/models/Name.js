@@ -7,16 +7,22 @@ const nameSchema = new mongoose.Schema({
         unique: true
     },
 
+    gender: {
+        type: String,
+        required: true,
+    },
+
     description : {
         type: String,
+        required: true, 
     },
-    
-    gender: {
+
+    literacy: {
         type: String,
     },
 
-    origin: {
-        type: String,
+    epigraph: {
+        type: String
     },
 
     image : {
