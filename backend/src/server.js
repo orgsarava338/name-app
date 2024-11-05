@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'
 import dotenv from 'dotenv';
 
 import { connectToDatabase } from './config/db.js';
@@ -17,6 +18,7 @@ await connectToDatabase();
 
 /** CONFIGURATIONS */
 app.use(express.json());
+app.use(cors());
 
 /** MIDDLEWARES */
 app.use(requestLogging);
