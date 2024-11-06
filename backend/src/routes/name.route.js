@@ -1,8 +1,8 @@
-import express from "express";
+const express = require("express");
 
-import { authorizeRoles, verifyToken } from "../middlewares/auth.middleware.js";
-import { createName, deleteName, getAllNames, getName, updateName } from "../controllers/name.controller.js";
-import { verifyId } from "../middlewares/mongo.middleware.js";
+const { authorizeRoles, verifyToken } = require("../middlewares/auth.middleware.js");
+const { createName, deleteName, getAllNames, getName, updateName } = require("../controllers/name.controller.js");
+const { verifyId } = require("../middlewares/mongo.middleware.js");
 
 const nameRouter = express.Router();
 
@@ -15,4 +15,4 @@ nameRouter.post('/', verifyToken, authorizeRoles('ADMIN'), createName);
 nameRouter.put('/:id', verifyId, verifyToken, authorizeRoles('ADMIN'), updateName);
 nameRouter.delete('/:id', verifyId, verifyToken, authorizeRoles('ADMIN'), deleteName);
 
-export default nameRouter;
+module.exports = nameRouter;

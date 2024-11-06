@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-export async function verifyToken(req, res, next) {
+exports.verifyToken = async (req, res, next) => {
     const token = req.cookies['auth_token'];
 
     if(!token) return res.status(401).json({message: 'No Token. Authorization denied.'});
@@ -14,7 +14,7 @@ export async function verifyToken(req, res, next) {
     }
 }
 
-export function authorizeRoles(...roles) {
+exports.authorizeRoles = (...roles) => {
     return async (req, res, next) => {
         if(!roles.includes(req.user.role)) return res.status(403).json({message: "Access Denied. you don't have access"});
         next();

@@ -1,21 +1,15 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import dotenv from 'dotenv';
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
-import { connectToDatabase } from './config/db.js';
+const { connectToDatabase } = require('./config/db.js');
 
-import authRouter from './routes/auth.route.js';
-import userRouter from './routes/user.route.js';
-import nameRouter from './routes/name.route.js';
-import { requestLogging } from './middlewares/logging.middleware.js';
-
-dotenv.config();
+const authRouter = require('./routes/auth.route.js');
+const userRouter = require('./routes/user.route.js');
+const nameRouter = require('./routes/name.route.js');
+const { requestLogging } = require('./middlewares/logging.middleware.js');
 
 const app = express();
-
-/** CONNECT TO DB */
-await connectToDatabase();
 
 /** CONFIGURATIONS */
 app.use(express.json());
@@ -30,7 +24,13 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/name', nameRouter);
 
+async function start() {
+    await connectToDatabase();
+
+    app.listen(process.env.PORT, async () =>  {
+        console.log(`server started at ${process.env.BACKEND_BASE_URL}`);
+    });
+}
+
 /** START THE SERVER */
-app.listen(process.env.PORT, async () =>  {
-    console.log(`server started at ${process.env.BACKEND_BASE_URL}`);
-});
+start();

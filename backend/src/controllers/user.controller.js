@@ -1,8 +1,8 @@
-import bcryptjs from "bcryptjs";
+const bcryptjs = require("bcryptjs");
 
-import User from "../models/User.js";
+const User = require("../models/User.js");
 
-export async function createUser(req, res) {
+exports.createUser = async (req, res) => {
     const {username, password, role = 'USER'} = req.body;
     
     try{
@@ -16,7 +16,7 @@ export async function createUser(req, res) {
     }
 }
 
-export async function getAllUsers(req, res) {
+exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find({});
         res.status(200).json({message: 'users got', data: users});
@@ -25,7 +25,7 @@ export async function getAllUsers(req, res) {
     }
 }
 
-export async function getUser(req, res) {
+exports.getUser = async (req, res) => {
     try {
         const user = await User.findOne({username : req.params.username});
         res.status(200).json({message: 'user got', data: user});
@@ -34,7 +34,7 @@ export async function getUser(req, res) {
     }
 }
 
-export async function deleteUser(req, res) {
+exports.deleteUser = async (req, res) => {
     try {
         await User.findOneAndDelete({username: req.params.username});
         res.status(200).json({message: 'user deleted'});

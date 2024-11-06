@@ -1,9 +1,9 @@
-import bcryptjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-import User from '../models/User.js';
+const User = require('../models/User.js');
 
-export async function register(req, res) {
+exports.register = async (req, res) => {
     const {username, email, password, role = 'USER'} = req.body;
     
     try{
@@ -28,7 +28,7 @@ export async function register(req, res) {
 
 }
 
-export async function login(req, res) {
+exports.login = async (req, res) => {
     try {
         
         const {usernameOrEmail, password} = req.body;
@@ -58,7 +58,7 @@ export async function login(req, res) {
     }
 }
 
-export async function logoff(req, res) {
+exports.logoff = async (req, res) => {
     try {
         res.clearCookie('auth_token');
         res.status(200).json({message: 'user logged off'});

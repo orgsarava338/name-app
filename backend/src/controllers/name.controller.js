@@ -1,6 +1,6 @@
-import Name from "../models/Name.js";
+const Name = require("../models/Name.js");
 
-export async function createName(req, res) {
+exports.createName = async (req, res) => {
     try {
         const _name = new Name(req.body);
         await _name.save();
@@ -11,7 +11,7 @@ export async function createName(req, res) {
     }
 }
 
-export async function getAllNames(req, res) {
+exports.getAllNames = async (req, res) => {
     try {
         const names = await Name.find({});
         res.status(200).json({message: 'names are fetched', data: names});
@@ -21,7 +21,7 @@ export async function getAllNames(req, res) {
     }
 }
 
-export async function getName(req, res) {
+exports.getName = async (req, res) => {
     try {
         const _name = await Name.findById({_id: req.params.id});
         res.status(200).json({message: 'name found', data: _name});
@@ -31,7 +31,7 @@ export async function getName(req, res) {
     }
 }
 
-export async function updateName(req, res) {
+exports.updateName = async (req, res) => {
     try {
 
         const {name, ...request} = req.body;
@@ -46,7 +46,7 @@ export async function updateName(req, res) {
     }
 }
 
-export async function deleteName(req, res) {
+exports.deleteName = async (req, res) => {
     try {
         await Name.findByIdAndDelete({_id: req.params.id});
         res.status(200).json({message: 'name deleted'});

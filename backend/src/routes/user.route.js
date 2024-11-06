@@ -1,7 +1,7 @@
-import express from "express";
+const express = require("express");
 
-import { verifyToken, authorizeRoles } from '../middlewares/auth.middleware.js'
-import { createUser, deleteUser, getAllUsers, getUser } from "../controllers/user.controller.js";
+const { verifyToken, authorizeRoles } = require('../middlewares/auth.middleware.js');
+const { createUser, deleteUser, getAllUsers, getUser } = require("../controllers/user.controller.js");
 
 const userRouter = express.Router();
 
@@ -14,4 +14,4 @@ userRouter.get('/', authorizeRoles('ADMIN'), getAllUsers);
 userRouter.get('/:username', authorizeRoles('ADMIN'), getUser);
 userRouter.delete('/:username', authorizeRoles('ADMIN'), deleteUser);
 
-export default userRouter;
+module.exports = userRouter;
