@@ -1,0 +1,22 @@
+{
+  "name": "name-app",
+  "version": "1.0.0",
+  "description": "name app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/orgsarava338/name-app.git"
+  },
+  "author": "sarava338",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orgsarava338/name-app/issues"
+  },
+  "homepage": "https://github.com/orgsarava338/name-app#readme",
+  "dependencies": {
+    "name-app": "file:"
+  }
+}
