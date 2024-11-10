@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import type {Params} from 'react-router-dom'
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 import deleteIcon from '../../assets/icons/delete.svg'
 import editIcon from '../../assets/icons/edit.svg'
