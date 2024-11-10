@@ -11,7 +11,6 @@ export default function Footer() {
         <footer>
 
             <hr />
-            <hr />
 
             <section>
                 <div>
