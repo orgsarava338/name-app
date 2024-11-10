@@ -4,7 +4,8 @@
   "description": "name app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev"
   },
   "repository": {
     "type": "git",

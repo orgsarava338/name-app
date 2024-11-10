@@ -1,10 +1,12 @@
-import Names from "./Names";
+import Letters from "../components/Letters";
+import NameFeed from "./name/NameFeed";
 
 export default function Home() {
+
     return (
         <>
-            <p>home</p>
-            <Names />
+            <Letters />
+            <NameFeed title="பெயர்கள்" />
         </>
     )
 }

@@ -1,29 +1,53 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import Home from "./pages/Home"
-import Names from "./pages/Names"
 import Contact from "./pages/Contact"
 import About from "./pages/About"
-import Header from "./components/header/Header"
-import Footer from "./components/footer/Footer"
+
+import NameFeed from "./pages/name/NameFeed"
+import NamePage from "./pages/name/NamePage"
+import NameAdd from "./pages/name/NameAdd"
+import NameEdit from "./pages/name/NameEdit"
+
+import PrivacyPolicy from "./pages/PrivacyPolicy"
+import TermsAndConditions from "./pages/TermsAndConditions"
+import Disclaimer from "./pages/Disclaimer"
+
+import Error from "./pages/Error"
+
+import Nav from "./components/Nav"
+import Footer from "./components/Footer"
+
+import NameProvider from "./context/NameContext"
 
 export default function App() {
+
   return (
     <>
-      <BrowserRouter future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}>
-        <Header />
+      <BrowserRouter future={{v7_startTransition: true, v7_relativeSplatPath: true}}>
+        <NameProvider>
+          <Nav />          
+            <Routes>
+              <Route path="/" element={<Home />} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/names" element={<Names />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
+              <Route path="/:name" element={<NamePage /> } />
+              <Route path="/name" element={<NameFeed />} />
+              <Route path="/name/:name" element={<NameFeed />} />
+              <Route path='/name/add' element={<NameAdd />} />
+              <Route path="/name/edit/:name" element={<NameEdit />} />
 
-        <Footer />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/about" element={<About />} />
+              
+              <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+              <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
+
+              <Route path="*" element={<Error code="404"><p>Page Not Found</p></Error>} />
+            </Routes>
+
+          <Footer />
+        </NameProvider>
       </BrowserRouter>
     </>
   )

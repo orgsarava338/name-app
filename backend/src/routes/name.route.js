@@ -8,6 +8,7 @@ const nameRouter = express.Router();
 
 /** PUBLIC */
 nameRouter.get('/', getAllNames);
+nameRouter.get('/:searchText', getAllNames);
 nameRouter.get('/:id', verifyId, getName);
 
 /** ADMIN */

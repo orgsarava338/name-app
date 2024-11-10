@@ -7,6 +7,11 @@ const nameSchema = new mongoose.Schema({
         unique: true
     },
 
+    nameInEnglish: {
+        type: String,
+        required: true
+    },
+
     gender: {
         type: String,
         required: true,
@@ -17,11 +22,11 @@ const nameSchema = new mongoose.Schema({
         required: true, 
     },
 
-    literacy: {
+    literatureEvidence: {
         type: String,
     },
 
-    epigraph: {
+    epigraphEvidence: {
         type: String
     },
 
