@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { Stack } from "react-bootstrap"
+import { Container, Stack } from "react-bootstrap"
 
 import Logo from "../assets/Logo"
 
@@ -12,7 +12,7 @@ import Logo from "../assets/Logo"
 
 export default function Nav() {
     return (
-        <nav>
+        <Container as='nav' className="my-5">
             <Stack direction="horizontal" gap={5}>
                 <Logo />
                 <Link to='/' className="ms-auto">முகப்பு</Link>
@@ -20,7 +20,7 @@ export default function Nav() {
                 <Link to='/contact'>தொடர்பு</Link>
                 <Link to='/about'>எங்களை பற்றி</Link>
             </Stack>
-        </nav>
+        </Container>
     )
 }
 

@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import { Container } from "react-bootstrap"
 
 interface IProps {
     children: ReactNode
@@ -6,9 +7,9 @@ interface IProps {
 
 export default function Content({children}: IProps) {
   return (
-    <main>
+    <Container as="main">
         {children}
-    </main>
+    </Container>
   )
 }
 

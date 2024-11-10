@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { NameContext } from "../context/NameContext"
+import { Container } from "react-bootstrap"
 
 export default function SearchBar() {
 
@@ -16,7 +17,7 @@ export default function SearchBar() {
   }
   
   return (
-    <form onSubmit={handleSubmit}>
+    <Container as='form' onSubmit={handleSubmit}>
       <label htmlFor="search">
         <input 
           type="text" 
@@ -27,6 +28,6 @@ export default function SearchBar() {
           placeholder="search"
         />
       </label>
-    </form>
+    </Container>
   )
 }

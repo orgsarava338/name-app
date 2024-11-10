@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import type {Params} from 'react-router-dom'
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 import deleteIcon from '../../assets/icons/delete.svg'
 import editIcon from '../../assets/icons/edit.svg'
@@ -9,6 +9,7 @@ import Error from '../Error'
 import Content from '../../components/Content'
 
 import { NameContext } from '../../context/NameContext'
+import { Stack } from 'react-bootstrap'
 
 export default function NamePage() {
     
@@ -17,18 +18,8 @@ export default function NamePage() {
         setNameDetail,
     } = useContext(NameContext)
     const { name } : Params = useParams();
-    const navigate = useNavigate()
 
     const foundName: IName | undefined = names.find((n:IName) => n.name.toString() == name)
-
-    const handleEditClick = (e: React.MouseEvent<HTMLImageElement>) => {
-        e.preventDefault()
-        if(!foundName) return;
-        
-        setNameDetail({...foundName})
-
-        navigate(`/name/edit/${foundName.name}`)
-    }
 
     return (
         <>  
@@ -52,14 +43,14 @@ export default function NamePage() {
                         { foundName.epigraphEvidence && <p>கல்வெட்டுச் சான்று : {foundName.epigraphEvidence}</p>}
                         { foundName.literatureEvidence && <p>இலக்கியச் சான்று : {foundName.literatureEvidence}</p>}
 
-                        <div>
-                            <img src={editIcon} alt="edit icon" className='icon' role='button'
-                                onClick={handleEditClick}
-                            />
-                            <img src={deleteIcon} alt="delete icon" className='icon' role='button'
-                                onClick={() => handleDelete(foundName.name)}
-                            />
-                        </div>
+                        <Stack className="mt-3" direction="horizontal" gap={2}>
+                            <Link to={`/name/edit/${foundName.name}`} className='ms-auto' onClick={() => {setNameDetail({...foundName})}}> 
+                                <img src={editIcon} alt="edit icon" />
+                            </Link>
+                            <button className="btn btn-link">
+                                <img src={deleteIcon} alt="delete icon" onClick={() => handleDelete(foundName.name)}/>
+                            </button>
+                        </Stack>
 
                     </article>
                 </Content>

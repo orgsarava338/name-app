@@ -1,11 +1,13 @@
+import { Container } from "react-bootstrap"
+
 interface IProps {
   children: React.ReactNode
 }
 
 export default function Header({children}: IProps) {
   return (
-    <header>
+    <Container as='header'>
         {children}
-    </header>
+    </Container>
   )
 }

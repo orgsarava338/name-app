@@ -19,11 +19,12 @@ import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 
 import NameProvider from "./context/NameContext"
+import { Container } from "react-bootstrap"
 
 export default function App() {
 
   return (
-    <>
+    <Container>
       <BrowserRouter future={{v7_startTransition: true, v7_relativeSplatPath: true}}>
         <NameProvider>
           <Nav />          
@@ -49,6 +50,6 @@ export default function App() {
           <Footer />
         </NameProvider>
       </BrowserRouter>
-    </>
+    </Container>
   )
 }
