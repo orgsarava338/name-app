@@ -19,13 +19,12 @@ export default function NameFeed(props: IProps) {
     
     const { title = 'நீங்கள் தேடும் அனைத்து சிறந்த தமிழ் பெயர்களும்' } = props
     
-    const { error, isLoading, searchResults, handleDelete, setNameDetail } = useContext(NameContext)
+    const { error, isLoading, searchResults, handleDelete } = useContext(NameContext)
     const navigate = useNavigate()
 
     const names = searchResults
 
     const handleEditClick = (nameDetail: IName) => {
-        setNameDetail({...nameDetail})
         navigate(`/name/edit/${nameDetail.name}`)
     }
 

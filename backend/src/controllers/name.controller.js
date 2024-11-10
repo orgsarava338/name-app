@@ -14,16 +14,10 @@ exports.createName = async (req, res) => {
 exports.getAllNames = async (req, res) => {
     try {
         const names = await Name.aggregate([
-
             {$match : {}},
-            
-            // { $addFields : {
-            //     sortKey : {$indexOfBites : [ "$name", 'ta' ]}
-            // }},
-            
-            { $sort: { name: -1} },
-          
+            { $sort: { name: 1} },
             { $project: { _id: 0, __v: 0, startsWithSearchText: 0 } }
+            
           ]).collation({locale: 'ta', strength: 1})
 
         res.status(200).json({message: 'names are fetched', data: names});
