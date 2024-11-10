@@ -26,7 +26,7 @@ export default function useAxiosGet(url: string) {
                     setData(response.data.data)
                     setError(null)
                 }
-    
+                
             } catch (err) {
                 const error = err as Error
                 if(isMounted) {
@@ -36,6 +36,7 @@ export default function useAxiosGet(url: string) {
             } finally {
                 isMounted && setIsLoading(false)
             }
+
         }
 
         fetchData(url)
