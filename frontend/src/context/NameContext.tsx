@@ -42,7 +42,7 @@ export default function NameProvider({children}: IProps) {
             n.name.toLowerCase().includes(search.toLowerCase()) 
             || n.nameInEnglish.toLowerCase().includes(search.toLowerCase())            
       ).sort((a: IName, b: IName) => a.name.toLowerCase().startsWith(search.toLowerCase())
-            ? -1
+            ? 1
             : a.name.localeCompare(b.name, 'ta')
         )
     )

@@ -1,35 +1,37 @@
 import { useContext } from 'react'
 import type {Params} from 'react-router-dom'
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import deleteIcon from '../../assets/icons/delete.svg'
 import editIcon from '../../assets/icons/edit.svg'
 
 import Error from '../Error'
-import Content from '../../components/Content'
 
 import { NameContext } from '../../context/NameContext'
-import { Stack } from 'react-bootstrap'
+import { Button, Container, Stack } from 'react-bootstrap'
 
 export default function NamePage() {
     
-    const {
-        names, handleDelete,
-        setNameDetail,
-    } = useContext(NameContext)
+    const { names, handleDelete, setNameDetail } = useContext(NameContext)
     const { name } : Params = useParams();
+    const navigate = useNavigate()
 
     const foundName: IName | undefined = names.find((n:IName) => n.name.toString() == name)
 
+    const handleEditClick = (nameDetail: IName) => {
+        setNameDetail({...nameDetail})
+        navigate(`/name/edit/${nameDetail.name}`)
+    }
+
     return (
-        <>  
+        <Container as='main'>  
             {!foundName ? 
             <Error code='404'>
                 <p>Name not found</p>
             </Error> :
 
-                <Content>
-                    <article className='name-detail'>
+                <section>
+                    <article>
                         <h1>{foundName.name}</h1>
 
                         <p>பெயர் ஆங்கிலத்தில் : {foundName.nameInEnglish}</p>
@@ -44,17 +46,17 @@ export default function NamePage() {
                         { foundName.literatureEvidence && <p>இலக்கியச் சான்று : {foundName.literatureEvidence}</p>}
 
                         <Stack className="mt-3" direction="horizontal" gap={2}>
-                            <Link to={`/name/edit/${foundName.name}`} className='ms-auto' onClick={() => {setNameDetail({...foundName})}}> 
+                            <Button variant="light" className='ms-auto' onClick={() => handleEditClick(foundName)}>
                                 <img src={editIcon} alt="edit icon" />
-                            </Link>
-                            <button className="btn btn-link">
-                                <img src={deleteIcon} alt="delete icon" onClick={() => handleDelete(foundName.name)}/>
-                            </button>
+                            </Button>
+                            <Button variant="light" onClick={() => handleDelete(foundName.name)}>
+                                <img src={deleteIcon} alt="delete icon" />
+                            </Button>
                         </Stack>
 
                     </article>
-                </Content>
+                </section>
             }
-        </>
+        </Container>
     )
 }

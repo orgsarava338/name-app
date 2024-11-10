@@ -1,33 +1,51 @@
-import { useContext } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { NameContext } from "../context/NameContext"
-import { Container } from "react-bootstrap"
+import { Container, FormControl, InputGroup } from "react-bootstrap"
 
 export default function SearchBar() {
 
-  const {search, setSearch} = useContext(NameContext)
-
   const navigate = useNavigate()
+  const {search, setSearch} = useContext(NameContext)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if(((e.key === "/") && e.ctrlKey || e.key == '/') && document.activeElement !== inputRef.current) {
+        e.preventDefault()
+        inputRef?.current?.focus()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => window.removeEventListener('keydown', handleKeyDown)
+
+  })
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    if(search.trim()) navigate(`/name/${search.trim().toLowerCase()}`)
+    const trimmed = search.trim()
+    if(trimmed) navigate(`/name/${trimmed.toLowerCase()}`)
   }
   
   return (
     <Container as='form' onSubmit={handleSubmit}>
-      <label htmlFor="search">
-        <input 
+      <InputGroup className="mb-3">
+        
+        <FormControl 
           type="text" 
           name="search" 
           id="search" 
+          placeholder="search"
+          ref={inputRef}
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="search"
         />
-      </label>
+          <InputGroup.Text>/</InputGroup.Text>
+      </InputGroup>
+
     </Container>
   )
 }

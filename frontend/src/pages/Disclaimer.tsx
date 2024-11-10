@@ -1,20 +1,23 @@
-import Content from "../components/Content";
+import { Container } from "react-bootstrap";
 
 export default function Disclaimer() {
   return (
-    <Content>
-        <h1><b>பொறுப்புத் துறப்பு</b></h1>
-
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta modi temporibus, dolorum aspernatur pariatur cum, harum id consequuntur dolore rem, tempore eveniet. Doloribus quam eaque accusantium eligendi maiores, a aut.
-        Deserunt labore, adipisci accusamus eveniet aspernatur expedita unde autem facilis in, fugiat vel aperiam architecto nemo consequuntur dignissimos nostrum voluptatibus quam repellendus, excepturi placeat officia repellat ab repudiandae iusto. Atque.
-        Modi maiores quasi iusto corporis aut rerum distinctio, id laborum deserunt quaerat ipsa explicabo unde, eligendi veritatis quibusdam expedita vitae. Delectus eum necessitatibus consectetur natus ex sequi quis odio illum?
-        Molestiae sunt atque quo maiores minus delectus omnis quod possimus commodi iste consequuntur perferendis eligendi fugit maxime cumque animi ut neque, dignissimos odio in ducimus dolorum. Saepe eveniet quasi commodi.
-        Soluta, molestias natus! Numquam voluptatem beatae eum veritatis blanditiis placeat labore fugiat facere reiciendis, quas ab ex molestias accusantium unde eius quod velit provident fuga distinctio quo iure. Fuga, ex.
-        Illo doloribus, a porro iusto culpa dolorem, perferendis voluptatum facilis id magni atque quia quaerat debitis corrupti illum asperiores! Sit, qui placeat quos quam obcaecati cupiditate ullam incidunt ut provident?
-        Quibusdam delectus obcaecati beatae libero nihil, quia ea voluptas perferendis non veniam, maiores vel facilis repellendus repudiandae laborum laboriosam reiciendis numquam quam inventore sed iste pariatur corporis. Repellendus, aperiam neque!
-        Corrupti fugit quisquam ratione quos. Reiciendis ex iusto nihil distinctio exercitationem voluptatem voluptatum magnam qui enim eaque cupiditate excepturi et sit laboriosam fugiat quo, nobis at maiores corporis soluta. Cupiditate!
-        Beatae pariatur a natus ipsum reiciendis delectus possimus hic ut molestiae libero facere officia explicabo, porro nisi. Totam dignissimos doloremque consectetur reprehenderit accusamus? Vero commodi error accusamus odit repellat recusandae!
-        Necessitatibus accusamus dicta nulla ratione, obcaecati porro, culpa sint perferendis cumque voluptatibus deserunt accusantium quia error totam, laborum omnis illum dolores eaque voluptate consequatur. Incidunt quas molestiae fuga ea vitae?</p>
-    </Content>
+    <Container as='main'>
+      <header>
+        <h1>தனியுரிமைக் கொள்கை</h1>
+      </header>
+      <section>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque, voluptate! Eveniet ullam deleniti impedit suscipit atque sint totam aspernatur nemo. Itaque sed, maiores minima reiciendis laboriosam cumque totam nihil consequuntur!
+        Quam magni saepe soluta corporis excepturi deserunt ullam, voluptas expedita ipsam adipisci placeat minus qui optio. Molestiae reiciendis labore, veritatis explicabo minima consectetur placeat, adipisci quos nihil quo quas ratione.
+        Accusamus, eius beatae harum tempora fugiat enim modi deserunt necessitatibus voluptates, a iste voluptatibus recusandae nemo et laboriosam quam adipisci natus numquam sequi quae quod dignissimos quisquam! Amet, culpa at?
+        Exercitationem nulla laudantium nam laboriosam, vitae deserunt reiciendis hic, consequatur molestias maxime asperiores placeat ratione. Id omnis similique tempora voluptatum nam blanditiis laboriosam facilis vel tenetur pariatur, modi labore dolor.
+        A placeat sit soluta unde nihil non assumenda nam debitis. Iusto, ullam. Necessitatibus sint at excepturi dolor aliquam, dicta sed inventore nihil, quae et magnam atque, beatae exercitationem aliquid accusamus!
+        Doloribus nobis cupiditate nisi odit! Ipsum excepturi cum dolore reiciendis sequi, soluta repudiandae architecto eligendi vitae explicabo nostrum nemo, ipsam, dolor expedita delectus numquam illum assumenda. Assumenda voluptatem ipsum ratione!
+        Consequatur et debitis error odio quia suscipit aut nam itaque. Molestias modi distinctio facilis officia. Quisquam aperiam asperiores et ipsam totam vel odio necessitatibus? Tenetur distinctio aliquid officiis blanditiis excepturi.
+        Non quae, veniam, eius nostrum minus ab similique aut alias amet nisi expedita vitae autem! Corporis consequuntur, fugit, cumque repudiandae pariatur vero assumenda, doloremque cum quae nesciunt tenetur repellat fuga.
+        Possimus similique doloribus porro optio ut accusantium velit aliquam in consequatur dolores voluptatum minima exercitationem sapiente voluptatem earum maxime, a hic enim eaque eveniet quisquam. Sed molestias laborum impedit deserunt.
+        Esse amet inventore quisquam odit a tempora expedita nisi nam, ut possimus voluptatum, voluptatibus libero natus similique porro eveniet ipsa suscipit quo. Dolorum, animi ducimus obcaecati facere a nisi molestiae.</p>
+      </section>
+    </Container>
   )
 }

@@ -1,7 +1,5 @@
 import React from "react"
-
-import Header from "../components/Header"
-import Content from "../components/Content"
+import { Container } from "react-bootstrap"
 
 interface IProps {
     code: string,
@@ -10,13 +8,13 @@ interface IProps {
 
 export default function Error({code, children}: IProps) {
   return (
-    <>
-        <Header>
-            {code}
-        </Header>
-        <Content>
+    <Container as='main'>
+        <header>
+            <h1>{code}</h1>
+        </header>
+        <section>
             {children}
-        </Content>
-    </>
+        </section>
+    </Container>
   )
 }

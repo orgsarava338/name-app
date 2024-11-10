@@ -1,7 +1,6 @@
 import { useContext } from "react"
-import Content from "../../components/Content"
-import Header from "../../components/Header"
 import { NameContext } from "../../context/NameContext"
+import { Container } from "react-bootstrap"
 
 export default function NameAdd() {
 
@@ -19,12 +18,12 @@ export default function NameAdd() {
     }
 
     return (
-        <>
-            <Header>
+        <Container as='main'>
+            <header>
                 <h1>Add new Name</h1>
-            </Header>
+            </header>
 
-            <Content>
+            <article>
                 <form onSubmit={handleSubmit}>
 
                     <div>
@@ -78,7 +77,7 @@ export default function NameAdd() {
 
                     <button type="submit">submit</button>
                 </form>
-            </Content>
-        </>
+            </article>
+        </Container>
     )
 }

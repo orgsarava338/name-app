@@ -1,9 +1,8 @@
 import { Params, useParams } from "react-router-dom";
-import Header from "../../components/Header";
-import Content from "../../components/Content";
 import { useContext } from "react";
 import { NameContext } from "../../context/NameContext";
 import Error from "../Error";
+import { Container } from "react-bootstrap";
 
 export default function NameEdit() {
     
@@ -29,11 +28,11 @@ export default function NameEdit() {
             {!foundName ? <Error code="404"><p>name not found to edit</p></Error>
                 : (
                     <>
-                        <Header>
+                        <header>
                             <h1> edit the name <code>{nameDetail.name}</code></h1> 
-                        </Header>
+                        </header>
 
-                        <Content>
+                        <Container as='main'>
                             <form onSubmit={handleEdit}>
 
                                 <div>
@@ -80,7 +79,7 @@ export default function NameEdit() {
 
                                 <button type="submit">submit</button>
                             </form>
-                        </Content>
+                        </Container>
                     </>
                 )
             }

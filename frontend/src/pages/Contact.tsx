@@ -1,9 +1,9 @@
-import Content from "../components/Content";
+import { Container } from "react-bootstrap";
 
 export default function Contact() {
     return (
-        <Content>
+        <Container as='main'>
             <h1><b>எங்களை தொடர்பு கொள்ள</b></h1>
-        </Content>
+        </Container>
     )
 }
