@@ -33,7 +33,7 @@ export default function SearchBar() {
   return (
     <Container as='form' onSubmit={handleSubmit}>
       <InputGroup className="mb-3">
-        
+
         <FormControl 
           type="text" 
           name="search" 

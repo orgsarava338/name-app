@@ -8,7 +8,7 @@ const uyirgal = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 
 const meigal = ['க', 'ங', 'ச', 'ஞ', 'ட', 'ண', 'த', 'ந', 'ப',
                  'ம', 'ய', 'ர', 'ல', 'வ', 'ழ', 'ள', 'ற', 'ன'];
 
-export default function SearchContainer() {
+export default function Letters() {
     const { setSearch } = useContext(NameContext);
     const navigate = useNavigate()
 

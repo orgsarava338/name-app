@@ -14,7 +14,7 @@ export const NameContext = createContext<INameContext>({
     searchResults: [] as IName[], setSearchResults: () => {},
     names: [] as IName[], setNames: () => {},
     nameDetail: {} as IName, setNameDetail: () => {},
-    handleSubmit: () => {},
+    handleAdd: () => {},
     handleEdit: () => {},
     handleDelete: () => {},
     error: null,
@@ -35,6 +35,7 @@ export default function NameProvider({children}: IProps) {
     
     useEffect(() => {
         setNames(data)
+        setNameDetail(new Name())
     }, [data])
 
     useEffect(() => {
@@ -48,7 +49,7 @@ export default function NameProvider({children}: IProps) {
     )
     }, [names, search])
 
-    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    const handleAdd = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
         
         const newName = {...nameDetail}
@@ -67,7 +68,7 @@ export default function NameProvider({children}: IProps) {
         if(nameDetail.name && nameDetail.nameInEnglish && nameDetail.description && nameDetail.gender) {
             
             setNames(names.map((n: IName) => n.name === nameDetail.name ? {...nameDetail} : n))
-            navigate(`/name/${nameDetail.name}`)
+            navigate(`/${nameDetail.name}`)
             setNameDetail(new Name())
 
         } else alert("these fields can't be empty : nameInEnglish, description, gender")
@@ -86,9 +87,9 @@ export default function NameProvider({children}: IProps) {
             names, setNames,
             nameDetail, setNameDetail,
     
-            handleDelete,
+            handleAdd,
             handleEdit,
-            handleSubmit,
+            handleDelete,
     
             error, isLoading,
         }}>

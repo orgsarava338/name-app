@@ -7,7 +7,7 @@ interface INameContext {
     setNames: React.Dispatch<React.SetStateAction<IName[]>>;
     nameDetail: IName,
     setNameDetail: React.Dispatch<React.SetStateAction<IName>>;
-    handleSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void;
+    handleAdd: (e: React.SyntheticEvent<HTMLFormElement>) => void;
     handleEdit: (e: React.SyntheticEvent<HTMLFormElement>) => void;
     handleDelete: (name: string) => void;
     error: string | null;

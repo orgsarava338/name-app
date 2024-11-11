@@ -1,26 +1,38 @@
 import { Link } from "react-router-dom"
-import { Container, Stack } from "react-bootstrap"
+import { Container, Nav, Navbar } from "react-bootstrap"
 
 import Logo from "../assets/Logo"
+import { useState } from "react"
 
-// const navs = [
-//     { title: 'முகப்பு', path: '/' },
-//     { title: 'பெயர்கள்', path: '/name', },
-//     { title: 'தொடர்பு', path: '/contact' },
-//     { title: 'எங்களை பற்றி', path: '/about' },
-// ]
+export default function _Nav() {
 
-export default function Nav() {
+    const [expanded, setExpanded] = useState(false)
+
+    const handleNavClick = () => setExpanded(false)
+
     return (
-        <Container as='nav' className="my-5">
-            <Stack direction="horizontal" gap={5}>
-                <Logo />
-                <Link to='/' className="ms-auto">முகப்பு</Link>
-                <Link to='/name'>பெயர்கள்</Link>
-                <Link to='/contact'>தொடர்பு</Link>
-                <Link to='/about'>எங்களை பற்றி</Link>
-            </Stack>
-        </Container>
+        <Navbar collapseOnSelect={true} expand='lg' className="my-3"
+            expanded={expanded} onToggle={setExpanded}    
+        >
+            <Container>
+                <Navbar.Brand onClick={() => handleNavClick()}>
+                    <Logo />
+                </Navbar.Brand>
+
+                <Navbar.Toggle aria-controls="responsive-navbar-nav"
+                    onClick={() => setExpanded(!expanded)}
+                />
+
+                <Navbar.Collapse id="responsive-navbar-nav" className="me-auto">
+                    <Nav className="ms-auto"> 
+                        <Nav.Link as={Link} onClick={() => handleNavClick()} to='/name'>பெயர்கள்</Nav.Link>
+                        <Nav.Link as={Link} onClick={() => handleNavClick()} to='/contact'>தொடர்பு</Nav.Link>
+                        <Nav.Link as={Link} onClick={() => handleNavClick()} to='/about'>எங்களை பற்றி</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     )
 }
+
 
