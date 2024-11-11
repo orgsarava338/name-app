@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/orgsarava338/name-app/issues"
   },
-  "homepage": "https://github.com/orgsarava338/name-app#readme",
+  "homepage": "https://peyar.netlify.app",
   "dependencies": {
     "name-app": "file:"
   }

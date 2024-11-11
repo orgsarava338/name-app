@@ -1,9 +1,8 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button, Container, Col, Stack } from "react-bootstrap";
 
 import { NameContext } from "../context/NameContext";
-import { Button, Container, Col, Stack } from "react-bootstrap";
-import SearchBar from "./SearchBar";
 
 const uyirgal = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ'];
 const meigal = ['க', 'ங', 'ச', 'ஞ', 'ட', 'ண', 'த', 'ந', 'ப',
@@ -25,8 +24,8 @@ export default function SearchContainer() {
             </header>
 
             <Stack className="mb-4">
-                <Col xs={6} md={12} lg={12} className="mb-3">
-                    <Stack direction="horizontal" gap={1} className="mb-3 flex-wrap">
+                <Col xs={6} md={12} lg={12} className="my-3">
+                    <Stack direction="horizontal" gap={1} className="flex-wrap">
                         {uyirgal.map((uyir) => (
                             <Button key={uyir} variant="primary" onClick={() => {handleClick(uyir)}}> {uyir} </Button>
                         ))}
@@ -34,15 +33,11 @@ export default function SearchContainer() {
                 </Col>
 
                 <Col xs={6} md={12} lg={18}>
-                    <Stack direction="horizontal" gap={1} className="mb-3 flex-wrap">
+                    <Stack direction="horizontal" gap={1} className="flex-wrap">
                         {meigal.map((mei) => (
                             <Button key={mei} variant="secondary" onClick={() => {handleClick(mei)}}> {mei} </Button>
                         ))}
                     </Stack>
-                </Col>
-
-                <Col>
-                    <SearchBar />
                 </Col>
             </Stack>
         </Container>

@@ -20,6 +20,7 @@ import Footer from "./components/Footer"
 
 import NameProvider from "./context/NameContext"
 import { Container } from "react-bootstrap"
+import SearchBar from "./components/SearchBar"
 
 export default function App() {
 
@@ -27,7 +28,9 @@ export default function App() {
     <Container>
       <BrowserRouter future={{v7_startTransition: true, v7_relativeSplatPath: true}}>
         <NameProvider>
-          <Nav />          
+          <Nav />
+            <SearchBar />
+
             <Routes>
               <Route path="/" element={<Home />} />
 
