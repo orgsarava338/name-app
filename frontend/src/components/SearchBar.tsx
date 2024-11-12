@@ -26,8 +26,6 @@ export default function SearchBar() {
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const trimmed = search.trim()
-    if(trimmed) navigate(`/name/${trimmed.toLowerCase()}`)
   }
   
   return (

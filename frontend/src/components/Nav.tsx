@@ -11,27 +11,29 @@ export default function _Nav() {
     const handleNavClick = () => setExpanded(false)
 
     return (
-        <Navbar collapseOnSelect={true} expand='lg' className="my-3"
-            expanded={expanded} onToggle={setExpanded}    
-        >
-            <Container>
-                <Navbar.Brand onClick={() => handleNavClick()}>
-                    <Logo />
-                </Navbar.Brand>
+        <>
+            <Navbar collapseOnSelect={true} expand='lg' className="my-3"
+                expanded={expanded} onToggle={setExpanded}    
+            >
+                <Container>
+                    <Navbar.Brand onClick={() => handleNavClick()}>
+                        <Logo />
+                    </Navbar.Brand>
 
-                <Navbar.Toggle aria-controls="responsive-navbar-nav"
-                    onClick={() => setExpanded(!expanded)}
-                />
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav"
+                        onClick={() => setExpanded(!expanded)}
+                    />
 
-                <Navbar.Collapse id="responsive-navbar-nav" className="me-auto">
-                    <Nav className="ms-auto"> 
-                        <Nav.Link as={Link} onClick={() => handleNavClick()} to='/name'>பெயர்கள்</Nav.Link>
-                        <Nav.Link as={Link} onClick={() => handleNavClick()} to='/contact'>தொடர்பு</Nav.Link>
-                        <Nav.Link as={Link} onClick={() => handleNavClick()} to='/about'>எங்களை பற்றி</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+                    <Navbar.Collapse id="responsive-navbar-nav" className="me-auto">
+                        <Nav fill className="ms-auto" variant="underline"> 
+                            <Nav.Link as={Link} onClick={() => handleNavClick()} to='/name'>பெயர்கள்</Nav.Link>
+                            <Nav.Link as={Link} onClick={() => handleNavClick()} to='/contact'>தொடர்பு</Nav.Link>
+                            <Nav.Link as={Link} onClick={() => handleNavClick()} to='/about'>எங்களை பற்றி</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </>
     )
 }
 
