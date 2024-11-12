@@ -1,12 +1,10 @@
 import { useContext, useEffect, useRef } from "react"
-import { useNavigate } from "react-router-dom"
 
 import { NameContext } from "../context/NameContext"
 import { Container, FormControl, InputGroup } from "react-bootstrap"
 
 export default function SearchBar() {
 
-  const navigate = useNavigate()
   const {search, setSearch} = useContext(NameContext)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
