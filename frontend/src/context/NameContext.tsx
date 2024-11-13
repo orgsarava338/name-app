@@ -31,7 +31,12 @@ export default function NameProvider({children}: IProps) {
     
     const navigate = useNavigate()
     const params = useParams()
-    const { data, error, isLoading } = useAxiosGet('/name')
+    const { data, error, isLoading } = useAxiosGet('/name', {
+        headers: {
+            'Cache-Control': 'public',
+            'pragma': 'public',
+        }
+    })
     
     useEffect(() => {
         setNames(data)

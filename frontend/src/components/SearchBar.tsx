@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react"
 
 import { NameContext } from "../context/NameContext"
-import { Container, FormControl, InputGroup } from "react-bootstrap"
+import { Form, FormControl, InputGroup } from "react-bootstrap"
 
 export default function SearchBar() {
 
@@ -27,7 +27,7 @@ export default function SearchBar() {
   }
   
   return (
-    <Container as='form' onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <InputGroup className="mb-3">
 
         <FormControl 
@@ -42,6 +42,6 @@ export default function SearchBar() {
           <InputGroup.Text>/</InputGroup.Text>
       </InputGroup>
 
-    </Container>
+    </Form>
   )
 }

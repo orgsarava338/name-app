@@ -19,7 +19,8 @@ exports.getAllNames = async (req, res) => {
             { $project: { _id: 0, __v: 0, startsWithSearchText: 0 } }
             
           ]).collation({locale: 'ta', strength: 1})
-
+        
+          res.set('Cache-Control', 'public');
         res.status(200).json({message: 'names are fetched', data: names});
     } catch (error) {
         console.error(error);

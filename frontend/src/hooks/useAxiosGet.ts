@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
-export default function useAxiosGet(url: string) {
+export default function useAxiosGet(url: string, config: AxiosRequestConfig = {}) {
 
     url = `${import.meta.env.APP_API_URL}${url}`
 
@@ -19,6 +19,7 @@ export default function useAxiosGet(url: string) {
 
             try {
                 const response = await axios.get(fetchUrl, {
+                    ...config,
                     cancelToken: source.token
                 })
     
