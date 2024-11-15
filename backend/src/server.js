@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const session = require('express-session')
 const { rateLimit } = require('express-rate-limit');
 const lusca = require('lusca');
 
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(limitter)
+app.use(session({secret: process.env.SESSION_SECRET, cookie: {maxAge : 60000}}))
 app.use(lusca.csrf())
 
 /** MIDDLEWARES */
