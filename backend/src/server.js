@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const { rateLimit } = require('express-rate-limit');
 
 const { connectToDatabase } = require('./config/db.js');
 
@@ -11,10 +12,19 @@ const { requestLogging } = require('./middlewares/logging.middleware.js');
 
 const app = express();
 
+const limitter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    message: {
+        message: 'requests were crossed the limit 100. Please try again sometime'
+    }
+})
+
 /** CONFIGURATIONS */
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+app.use(limitter)
 
 /** MIDDLEWARES */
 app.use(requestLogging);
