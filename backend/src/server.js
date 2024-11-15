@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { rateLimit } = require('express-rate-limit');
+const lusca = require('lusca');
 
 const { connectToDatabase } = require('./config/db.js');
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(limitter)
+app.use(lusca.csrf())
 
 /** MIDDLEWARES */
 app.use(requestLogging);
