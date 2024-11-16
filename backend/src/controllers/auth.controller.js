@@ -19,7 +19,12 @@ exports.register = async (req, res) => {
         user = new User({username, email, role, password: hashedPassword});
         await user.save();
 
-        res.cookie('auth_token', token, {expiresIn: 24 * 60 * 60 * 1000, httpOnly: true});
+        res.cookie('auth_token', token, {
+            httpOnly: true,
+            sameSite: 'Strict',
+            secure: process.env.NODE_ENV === 'prod',
+            expiresIn: 24 * 60 * 60 * 1000, 
+        });
         res.status(201).json({message: `user registered with username as ${username}`});
         
     } catch(error) {
@@ -49,7 +54,12 @@ exports.login = async (req, res) => {
             { expiresIn: '1d' }
         );
 
-        res.cookie('auth_token', token, {expiresIn: 24 * 60 * 60 * 1000, httpOnly: true});
+        res.cookie('auth_token', token, {
+            httpOnly: true,
+            sameSite: 'Strict',
+            secure: process.env.NODE_ENV === 'prod',
+            expiresIn: 24 * 60 * 60 * 1000, 
+        });
         res.status(200).json({message: 'user logged in'});
 
     } catch (error) {
