@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import useAxiosGet from "../hooks/useAxiosGet";
 
@@ -30,7 +30,6 @@ export default function NameProvider({children}: IProps) {
     const [nameDetail, setNameDetail] = useState({} as IName)
     
     const navigate = useNavigate()
-    const params = useParams()
     const { data, error, isLoading } = useAxiosGet('/name', {
         headers: {
             'Cache-Control': 'public',
@@ -81,7 +80,6 @@ export default function NameProvider({children}: IProps) {
 
     const handleDelete = (name: string) => {
         setNames(names.filter(n => n.name !== name))
-        if(params) navigate('/')
     }
 
     return (
