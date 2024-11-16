@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(limitter)
-app.use(session({secret: process.env.SESSION_SECRET, cookie: {maxAge : 60000}}))
+app.use(session({secret: process.env.SESSION_SECRET, cookie: {maxAge: 60000, secure: true, httpOnly: true}}))
 app.use(lusca.csrf())
 
 /** MIDDLEWARES */
