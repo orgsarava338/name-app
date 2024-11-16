@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Container } from "react-bootstrap"
 
+import Signup from "./pages/Signup"
+import Login from "./pages/Login"
+
 import Home from "./pages/Home"
 import Contact from "./pages/Contact"
 import About from "./pages/About"
@@ -31,6 +34,9 @@ export default function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
+
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
 
             <Route path="/:name" element={<NamePage /> } />
             <Route path="/name" element={<NameFeed />} />

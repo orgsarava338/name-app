@@ -16,10 +16,10 @@ const app = express();
 
 const limitter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    limit: 100,
-    message: {
-        message: 'requests were crossed the limit 100. Please try again sometime'
-    }
+    limit: 1000,
+    resave: true,
+    saveUninitialized: true,
+    message: 'requests were crossed the limit 100. Please try again sometime'
 })
 
 /** CONFIGURATIONS */
@@ -31,7 +31,7 @@ app.use(session({secret: process.env.SESSION_SECRET, cookie: {maxAge : 60000}}))
 app.use(lusca.csrf())
 
 /** MIDDLEWARES */
-app.use(requestLogging);
+// app.use(requestLogging);
 
 /** ROUTERS */
 app.use('/api/auth', authRouter);
