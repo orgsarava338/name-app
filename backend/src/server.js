@@ -31,7 +31,7 @@ app.use(session({secret: process.env.SESSION_SECRET, cookie: {maxAge : 60000}}))
 app.use(lusca.csrf())
 
 /** MIDDLEWARES */
-app.use(requestLogging);
+// app.use(requestLogging);
 
 /** ROUTERS */
 app.use('/api/auth', authRouter);
