@@ -19,8 +19,13 @@ export default function NamePage() {
     const foundName: IName | undefined = names.find((n:IName) => n.name.toString() == name)
 
     const handleEditClick = (nameDetail: IName) => {
-        setNameDetail({...nameDetail})
         navigate(`/name/edit/${nameDetail.name}`)
+        setNameDetail({...nameDetail})
+    }
+
+    const handleDeleteClick = (nameDetail: IName) => {
+        navigate('/')
+        handleDelete(nameDetail.name)
     }
 
     return (
@@ -49,7 +54,7 @@ export default function NamePage() {
                             <Button variant="light" className='ms-auto' onClick={() => handleEditClick(foundName)}>
                                 <img src={editIcon} alt="edit icon" />
                             </Button>
-                            <Button variant="light" onClick={() => handleDelete(foundName.name)}>
+                            <Button variant="light" onClick={() => handleDeleteClick(foundName)}>
                                 <img src={deleteIcon} alt="delete icon" />
                             </Button>
                         </Stack>

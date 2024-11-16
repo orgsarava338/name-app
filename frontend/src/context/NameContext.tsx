@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import useAxiosGet from "../hooks/useAxiosGet";
 
@@ -30,7 +30,6 @@ export default function NameProvider({children}: IProps) {
     const [nameDetail, setNameDetail] = useState({} as IName)
     
     const navigate = useNavigate()
-    const params = useParams()
     const { data, error, isLoading } = useAxiosGet('/name', {
         headers: {
             'Cache-Control': 'public',
@@ -43,16 +42,15 @@ export default function NameProvider({children}: IProps) {
         setNameDetail(new Name())
     }, [data])
 
-    useEffect(() => {
-      setSearchResults(names.filter(n => 
+    useEffect(() => {setSearchResults(
+        names.filter(n => 
             n.name.toLowerCase().includes(search.toLowerCase()) 
             || n.nameInEnglish.toLowerCase().includes(search.toLowerCase())            
-      ).sort((a: IName, b: IName) => a.name.toLowerCase().startsWith(search.toLowerCase())
+        ).sort((a: IName, b: IName) => a.name.toLowerCase().startsWith(search.toLowerCase())
             ? 1
             : a.name.localeCompare(b.name, 'ta')
         )
-    )
-    }, [names, search])
+    )}, [names, search])
 
     const handleAdd = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -81,7 +79,6 @@ export default function NameProvider({children}: IProps) {
 
     const handleDelete = (name: string) => {
         setNames(names.filter(n => n.name !== name))
-        if(params) navigate('/')
     }
 
     return (
