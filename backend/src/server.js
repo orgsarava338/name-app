@@ -17,9 +17,9 @@ const app = express();
 const limitter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 1000,
-    message: {
-        message: 'requests were crossed the limit 100. Please try again sometime'
-    }
+    resave: true,
+    saveUninitialized: true,
+    message: 'requests were crossed the limit 100. Please try again sometime'
 })
 
 /** CONFIGURATIONS */
