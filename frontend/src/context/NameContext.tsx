@@ -42,16 +42,15 @@ export default function NameProvider({children}: IProps) {
         setNameDetail(new Name())
     }, [data])
 
-    useEffect(() => {
-      setSearchResults(names.filter(n => 
+    useEffect(() => {setSearchResults(
+        names.filter(n => 
             n.name.toLowerCase().includes(search.toLowerCase()) 
             || n.nameInEnglish.toLowerCase().includes(search.toLowerCase())            
-      ).sort((a: IName, b: IName) => a.name.toLowerCase().startsWith(search.toLowerCase())
+        ).sort((a: IName, b: IName) => a.name.toLowerCase().startsWith(search.toLowerCase())
             ? 1
             : a.name.localeCompare(b.name, 'ta')
         )
-    )
-    }, [names, search])
+    )}, [names, search])
 
     const handleAdd = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
