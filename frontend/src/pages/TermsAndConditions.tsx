@@ -4,7 +4,7 @@ export default function TermsAndConditions() {
   return (
     <Container as='main'>
       <header>
-        <h1>தனியுரிமைக் கொள்கை</h1>
+        <h1>விதிமுறைகள் மற்றும் நிபந்தனைகள்</h1>
       </header>
       <section>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque, voluptate! Eveniet ullam deleniti impedit suscipit atque sint totam aspernatur nemo. Itaque sed, maiores minima reiciendis laboriosam cumque totam nihil consequuntur!

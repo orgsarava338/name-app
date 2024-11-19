@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import type {Params} from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
 
@@ -7,12 +6,12 @@ import editIcon from '../../assets/icons/edit.svg'
 
 import Error from '../Error'
 
-import { NameContext } from '../../context/NameContext'
+import { useNameContext } from '../../context/NameContext'
 import { Button, Container, Stack } from 'react-bootstrap'
 
 export default function NamePage() {
     
-    const { names, handleDelete, setNameDetail } = useContext(NameContext)
+    const { searchNameResults: names, deleteName } = useNameContext()
     const { name } : Params = useParams();
     const navigate = useNavigate()
 
@@ -20,12 +19,11 @@ export default function NamePage() {
 
     const handleEditClick = (nameDetail: IName) => {
         navigate(`/name/edit/${nameDetail.name}`)
-        setNameDetail({...nameDetail})
     }
 
     const handleDeleteClick = (nameDetail: IName) => {
+        deleteName(nameDetail.name)
         navigate('/')
-        handleDelete(nameDetail.name)
     }
 
     return (

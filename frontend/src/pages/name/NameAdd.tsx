@@ -1,13 +1,13 @@
-import { useContext, useEffect } from "react"
-import { Form, Button, Container, FormControl, FormGroup, FormLabel } from "react-bootstrap"
+import { useEffect } from "react"
+import { Form, Button, Container, FormControl, FormGroup, FormLabel, Alert } from "react-bootstrap"
 
 import Name from "../../utils/Name"
 
-import { NameContext } from "../../context/NameContext"
+import { useNameContext } from "../../context/NameContext"
 
 export default function NameAdd() {
 
-    const { handleAdd, nameDetail, setNameDetail } = useContext(NameContext)
+    const { addName, nameDetail, setNameDetail, isLoading, error } = useNameContext()
 
     useEffect(() => {
         if(!nameDetail) setNameDetail(new Name())
@@ -17,13 +17,20 @@ export default function NameAdd() {
         setNameDetail({...nameDetail, [e.target.name] : e.target.value })
     }
 
+    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        addName()
+    }
+
     return (
         <Container as='main'>
             <header>
                 <h1>Add new Name</h1>
             </header>
 
-            <Form onSubmit={handleAdd} >
+            {error && <Alert variant="danger">{error}</Alert>}
+
+            <Form onSubmit={handleSubmit} >
 
                 <FormGroup>
                     <FormLabel htmlFor="name">Name : </FormLabel>
@@ -67,7 +74,7 @@ export default function NameAdd() {
                     />
                 </FormGroup>
 
-                <Button type="submit">submit</Button>
+                <Button type="submit" active={!isLoading}>{isLoading ? 'saving...' : 'submit'}</Button>
             </Form>
         </Container>
     )
