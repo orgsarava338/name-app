@@ -121,6 +121,7 @@ export default function NameProvider({ children }: IProps) {
 
   useEffect(() => {
     setError('')
+    setSearch('')
   }, [location])
 
   return (

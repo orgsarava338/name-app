@@ -21,11 +21,15 @@ exports.register = async (req, res) => {
 
         res.cookie('auth_token', token, {
             httpOnly: true,
+            secure: true,
             sameSite: 'Strict',
-            secure: process.env.NODE_ENV === 'prod',
             expiresIn: 24 * 60 * 60 * 1000, 
         });
-        res.status(201).json({message: `user registered with username as ${username}`});
+
+        res.status(201).json({
+            message: `user registered with username as ${username}`, 
+            data: {email, username, isAdmin: false}
+        });
         
     } catch(error) {
         res.status(400).json({message: 'user not registered', error: error.message});
@@ -36,12 +40,12 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         
-        const {usernameOrEmail, password} = req.body;
+        const {emailOrUsername, password} = req.body;
         
-        if(!usernameOrEmail) throw new Error('username / email any one was required to login');
+        if(!emailOrUsername) throw new Error('username / email any one was required to login');
         if(!password) throw new Error('password required to login');
 
-        const user = await User.findOne({$or: [{username: usernameOrEmail}, {email: usernameOrEmail}]});
+        const user = await User.findOne({$or: [{username: emailOrUsername}, {email: emailOrUsername}]});
 
         if(!user) throw new Error('user not exist');
 
@@ -56,11 +60,14 @@ exports.login = async (req, res) => {
 
         res.cookie('auth_token', token, {
             httpOnly: true,
+            secure: true,
             sameSite: 'Strict',
-            secure: process.env.NODE_ENV === 'prod',
             expiresIn: 24 * 60 * 60 * 1000, 
         });
-        res.status(200).json({message: 'user logged in'});
+        res.status(200).json({
+            message: 'user logged in',
+            data: {email: user.email, username: user.username, isAdmin: user.role === 'admin'}
+        });
 
     } catch (error) {
         console.log(error)

@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use(limitter)
 app.use(session({secret: process.env.SESSION_SECRET, cookie: {maxAge: 60000, secure: true, httpOnly: true}}))
-app.use(lusca.csrf())
+// app.use(lusca.csrf())
 
 /** MIDDLEWARES */
 // app.use(requestLogging);

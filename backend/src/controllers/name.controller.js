@@ -30,7 +30,7 @@ exports.getAllNames = async (req, res) => {
 
 exports.getName = async (req, res) => {
     try {
-        const _name = await Name.findById({_id: req.params.id});
+        const _name = await Name.findOne({name: req.params.name});
         res.status(200).json({message: 'name found', data: _name});
     } catch (error) {
         console.error(error);
@@ -45,8 +45,8 @@ exports.updateName = async (req, res) => {
 
         if(name) throw new Error('name field not allowed to be modified. If required, Please try to create a new name');
 
-        await Name.findByIdAndUpdate({_id: req.params.id}, request);
-        res.status(200).json({message: 'name updated'});
+        const updatedName = await Name.findOneAndUpdate({name: req.params.name}, request, {new: true});
+        res.status(200).json({message: 'name updated', data: updatedName});
     } catch (error) {
         console.error(error);
         res.status(400).json({message: 'Name not updated', error: error.message});
@@ -55,7 +55,7 @@ exports.updateName = async (req, res) => {
 
 exports.deleteName = async (req, res) => {
     try {
-        await Name.findByIdAndDelete({_id: req.params.id});
+        await Name.findByIdAndDelete({name: req.params.name});
         res.status(200).json({message: 'name deleted'});
     } catch (error) {
         console.error(error);
