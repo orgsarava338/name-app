@@ -1,12 +1,14 @@
 import { Form, Button, Container, FormControl, FormGroup, FormLabel, Alert, Spinner } from "react-bootstrap";
 
 import { useNameContext } from "../../context/NameContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function NameEdit() {
-    
-    const { isLoading, error, updateName, nameDetail, setNameDetail, searchNameResults: names } = useNameContext()
+
+    const [nameDetail, setNameDetail] = useState<IName | null>(null)
+
+    const { isLoading, error, updateName, searchNameResults: names } = useNameContext()
 
     const params = useParams()
 
@@ -16,12 +18,12 @@ export default function NameEdit() {
     }, [names, params.name])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setNameDetail((nameDetail: IName) => ({...nameDetail, [e.target.name] : e.target.value }))
+        setNameDetail(({...nameDetail, [e.target.name] : e.target.value }) as IName)
     }
 
     const handleEdit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
-        updateName()
+        if(nameDetail) updateName(nameDetail)
     }
 
     return (
@@ -30,7 +32,7 @@ export default function NameEdit() {
                 : (
                     <Container as='main'>
                         <header>
-                            <h1>Edit the name <br /><code><b>{nameDetail.name}</b></code></h1> 
+                            <h1>Edit the name <p><code><b>{nameDetail.name}</b></code></p></h1> 
                         </header>
 
                         {isLoading && <Spinner /> }
@@ -49,6 +51,13 @@ export default function NameEdit() {
                                 <FormLabel htmlFor="gender">Gender : </FormLabel>
                                 <FormControl type="text" name="gender" id="gender" required
                                     value={nameDetail.gender || ''} onChange={handleChange}
+                                />
+                            </FormGroup>
+
+                            <FormGroup>
+                                <FormLabel htmlFor="origin">Origin : </FormLabel>
+                                <FormControl as='input' name="origin" id="origin"
+                                    value={nameDetail.origin || ''} onChange={handleChange}
                                 />
                             </FormGroup>
                             

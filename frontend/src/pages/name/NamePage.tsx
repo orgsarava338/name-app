@@ -8,6 +8,8 @@ import Error from '../Error'
 
 import { useNameContext } from '../../context/NameContext'
 import { Button, Container, Stack } from 'react-bootstrap'
+import CommentProvider from '../../context/CommentContext'
+import CommentSection from '../../components/CommentSection'
 
 export default function NamePage() {
     
@@ -33,14 +35,12 @@ export default function NamePage() {
                 <p>Name not found</p>
             </Error> :
 
-                <section>
-                    <article>
+                <article>
+                    <section>
                         <h1>{foundName.name}</h1>
 
                         <p>பெயர் ஆங்கிலத்தில் : {foundName.nameInEnglish}</p>
                         
-                        {foundName.image && <img src={foundName.image} alt={`${foundName.name} name's related image`}/>}
-
                         <p>பாலினம் : {foundName.gender}</p>
                         <p>விளக்கம் : {foundName.description}</p>
                         
@@ -57,8 +57,14 @@ export default function NamePage() {
                             </Button>
                         </Stack>
 
-                    </article>
-                </section>
+                    </section>
+
+                    <section>
+                        <CommentProvider nameId={foundName._id}>
+                            <CommentSection />
+                        </CommentProvider>
+                    </section>
+                </article>
             }
         </Container>
     )

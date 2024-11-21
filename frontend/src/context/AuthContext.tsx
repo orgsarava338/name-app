@@ -2,31 +2,8 @@ import { createContext, useContext, useState } from "react";
 import api from "../utils/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface ILogin {
-    emailOrUsername: string
-    password: string
-}
-
-interface ISignup {
-    email: string
-    username: string
-    password: string
-}
-
-interface IUser {
-    isAdmin: boolean
-    username: string
-    email: string
-}
-
-interface IAuthContext {
-    signup: (signupCredential: ISignup) => void
-    login: (loginCredential: ILogin) => void
-    logout: () => void
-    user: IUser | null
-    isAdmin: boolean
-    isLoading: boolean
-    error: string
+interface iProps {
+    children: React.ReactNode
 }
 
 const AuthContext = createContext<IAuthContext | null>(null)
@@ -37,7 +14,7 @@ export const useAuthContext = () => {
     return authContext
 }
 
-export default function AuthProvider() {
+export default function AuthProvider({children}: iProps) {
     
     const [user, setUser] = useState<IUser | null>(null)
     const [error, setError] = useState<string | null>(null)
@@ -117,6 +94,7 @@ export default function AuthProvider() {
 
     return (
         <AuthContext.Provider value={value}>
+            {children}
         </AuthContext.Provider>
     )
 }
