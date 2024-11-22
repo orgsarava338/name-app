@@ -37,8 +37,8 @@ export default function NameFeed(props: IProps) {
             <>
                 <header><h1>{title}</h1></header>
             
-                { isLoading && <Spinner /> } 
                 { error && <Alert variant="danger">{error}</Alert> } 
+                { isLoading && <Spinner /> } 
 
                 <Row className="my-5" sm={3} lg={4}> {names.map(n => (
                         <Col key={n.name} xs={16} sm={12} md={6} lg={4} className="mb-md-4">

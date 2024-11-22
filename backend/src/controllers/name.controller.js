@@ -16,7 +16,7 @@ exports.getAllNames = async (req, res) => {
         const names = await Name.aggregate([
             {$match : {}},
             { $sort: { name: 1} },
-            { $project: { _id: 0, __v: 0, startsWithSearchText: 0 } }
+            { $project: { __v: 0, startsWithSearchText: 0 } }
             
           ]).collation({locale: 'ta', strength: 1})
         

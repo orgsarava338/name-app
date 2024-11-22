@@ -44,9 +44,22 @@ export default function NameAdd() {
 
                 <FormGroup>
                     <FormLabel htmlFor="gender">Gender : </FormLabel>
-                    <FormControl type="text" name="gender" id="gender" 
-                        value={nameDetail ? nameDetail.gender : ''} onChange={handleChange}
-                    />
+                    <span className="mb-3">
+                        {['ஆண்', 'பெண்', 'common'].map(gender => (
+                            <span key={`gender-${gender}`}>
+                                <Form.Check.Input
+                                    type="radio"
+                                    className="mx-3" 
+                                    name="gender"
+                                    id={`gender-${gender}`}  
+                                    checked={nameDetail?.gender === gender}
+                                    value={gender}
+                                    onChange={handleChange} 
+                                />
+                                <Form.Check.Label htmlFor={`gender-${gender}`}>{gender}</Form.Check.Label>
+                            </span>
+                        ))}
+                    </span>
                 </FormGroup>
 
                 <FormGroup>

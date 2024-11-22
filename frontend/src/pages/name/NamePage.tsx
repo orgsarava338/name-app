@@ -4,8 +4,6 @@ import { useNavigate, useParams } from "react-router-dom"
 import deleteIcon from '../../assets/icons/delete.svg'
 import editIcon from '../../assets/icons/edit.svg'
 
-import Error from '../Error'
-
 import { useNameContext } from '../../context/NameContext'
 import { Button, Container, Stack } from 'react-bootstrap'
 import CommentProvider from '../../context/CommentContext'
@@ -30,11 +28,8 @@ export default function NamePage() {
 
     return (
         <Container as='main'>  
-            {!foundName ? 
-            <Error code='404'>
-                <p>Name not found</p>
-            </Error> :
-
+            {!foundName ? <h2>No name found</h2>
+                :
                 <article>
                     <section>
                         <h1>{foundName.name}</h1>

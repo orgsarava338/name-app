@@ -18,11 +18,10 @@ import PrivacyPolicy from "./pages/PrivacyPolicy"
 import TermsAndConditions from "./pages/TermsAndConditions"
 import Disclaimer from "./pages/Disclaimer"
 
-import Error from "./pages/Error"
-
 import NavBar from "./components/Nav"
 import Footer from "./components/Footer"
 import NameProvider from "./context/NameContext"
+import AuthProvider from "./context/AuthContext"
 
 export default function App() {
 
@@ -32,32 +31,34 @@ export default function App() {
     <Container>
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <QueryClientProvider client={queryClient}>
-            <NameProvider>
-              <NavBar />
+            <AuthProvider>
+              <NameProvider>
+                <NavBar />
 
-              <Routes>
-                <Route path="/" element={<Home />} />
+                <Routes>
+                  <Route path="/" element={<Home />} />
 
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
 
-                <Route path="/:name" element={<NamePage /> } />
-                <Route path="/name" element={<NameFeed />} />
-                <Route path='/name/add' element={<NameAdd />} />
-                <Route path="/name/edit/:name" element={<NameEdit />} />
+                  <Route path="/:name" element={<NamePage /> } />
+                  <Route path="/name" element={<NameFeed />} />
+                  <Route path='/name/add' element={<NameAdd />} />
+                  <Route path="/name/edit/:name" element={<NameEdit />} />
 
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/about" element={<About />} />
-                
-                <Route path="/privacy_policy" element={<PrivacyPolicy />} />
-                <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
-                <Route path="/disclaimer" element={<Disclaimer />} />
-                
-                <Route path="*" element={<Error code="404"><p>Page Not Found</p></Error>} />
-              </Routes>
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/about" element={<About />} />
+                  
+                  <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+                  <Route path="/terms_and_conditions" element={<TermsAndConditions />} />
+                  <Route path="/disclaimer" element={<Disclaimer />} />
+                  
+                  <Route path="*" element={<h1>404</h1>} />
+                </Routes>
 
-              <Footer />
-            </NameProvider>
+                <Footer />
+              </NameProvider>
+            </AuthProvider>
           </QueryClientProvider>
         </BrowserRouter>
     </Container>
