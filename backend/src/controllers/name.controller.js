@@ -36,9 +36,8 @@ exports.getName = async (req, res) => {
 
 exports.updateName = async (req, res) => {
     try {
-
-        const {name, nameInEnglish, description, gender, literatureEvidence, epigraphEvidence} = req.body;
-        if(name) res.status(400).json({message: 'name field cant be updated'});
+        const { name } = req.params
+        const { nameInEnglish, description, gender, literatureEvidence, epigraphEvidence } = req.body;
 
         const request = {};
         
@@ -48,7 +47,7 @@ exports.updateName = async (req, res) => {
         if(literatureEvidence) request.literatureEvidence = literatureEvidence;
         if(epigraphEvidence) request.epigraphEvidence = epigraphEvidence;
 
-        const updatedName = await Name.findOneAndUpdate({ name: req.params.name }, { request }, { new: true });
+        const updatedName = await Name.findOneAndUpdate({ name }, { request }, { new: true });
         res.status(200).json({message: 'name updated', data: updatedName});
     } catch (error) {
         console.error(error);

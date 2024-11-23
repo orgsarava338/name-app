@@ -1,14 +1,15 @@
+import { useEffect } from 'react'
 import type {Params} from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
+import { Button, Container, Stack } from 'react-bootstrap'
 
 import deleteIcon from '../../assets/icons/delete.svg'
 import editIcon from '../../assets/icons/edit.svg'
 
+import CommentSection from '../../components/comment/CommentSection'
+
 import { useNameContext } from '../../context/NameContext'
-import { Button, Container, Stack } from 'react-bootstrap'
 import CommentProvider from '../../context/CommentContext'
-import CommentSection from '../../components/CommentSection'
-import { useEffect } from 'react'
 
 export default function NamePage() {
     
@@ -20,7 +21,6 @@ export default function NamePage() {
         if(name) {
             getName(name)
             document.title = `பெயர் செயலி || பெயர் - ${name} | ${foundName?.nameInEnglish}`
-            
         }
     }, [name, names])
 

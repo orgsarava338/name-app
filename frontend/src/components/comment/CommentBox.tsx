@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Button, Stack } from "react-bootstrap"
 
-import { useCommentContext } from "../context/CommentContext"
-import CommentInput from "./comment/CommentInput"
+import { useCommentContext } from "../../context/CommentContext"
+import CommentInput from "./CommentInput"
 
 interface IProps {
   comment: IComment

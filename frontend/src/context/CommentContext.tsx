@@ -94,7 +94,7 @@ export default function CommentProvider({children, nameId}: IProps) {
     const deleteCommentMutation = useMutation({
         mutationFn: async (commentId : string) => {
             setIsLoading(true)
-            await api.delete(`/comment/${commentId}`)
+            await api.delete(`/comment/${nameId}/${commentId}`)
         },
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['comments']});

@@ -87,11 +87,14 @@ exports.updateComment = async (req, res) => {
 
 exports.deleteComment = async (req, res) => {
     try {
-        const { commentId } = req.params;
+        const { nameId, commentId } = req.params;
 
         const deleteCommentWithReplies = async (id) => {
             await Comment.deleteMany({parent: id})
             await Comment.findByIdAndDelete(id);
+            await Name.findByIdAndUpdate(nameId, {
+                $pull: { comments: id }
+            });
         };
 
         await deleteCommentWithReplies(commentId);

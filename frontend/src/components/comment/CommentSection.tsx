@@ -1,8 +1,8 @@
 import { Alert, Spinner } from "react-bootstrap"
-import { useCommentContext } from "../context/CommentContext"
+import { useCommentContext } from "../../context/CommentContext"
 import CommentBox from "./CommentBox"
 import { useState } from "react"
-import CommentInput from "./comment/CommentInput"
+import CommentInput from "./CommentInput"
 
 export default function CommentSection() {
 
