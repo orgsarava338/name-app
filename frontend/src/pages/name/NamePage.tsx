@@ -8,14 +8,23 @@ import { useNameContext } from '../../context/NameContext'
 import { Button, Container, Stack } from 'react-bootstrap'
 import CommentProvider from '../../context/CommentContext'
 import CommentSection from '../../components/CommentSection'
+import { useEffect } from 'react'
 
 export default function NamePage() {
     
-    const { searchNameResults: names, deleteName } = useNameContext()
+    const { searchNameResults: names, getName, deleteName } = useNameContext()
     const { name } : Params = useParams();
     const navigate = useNavigate()
+    
+    useEffect(() => {
+        if(name) {
+            getName(name)
+            document.title = `பெயர் செயலி || பெயர் - ${name} | ${foundName?.nameInEnglish}`
+            
+        }
+    }, [name, names])
 
-    const foundName: IName | undefined = names.find((n:IName) => n.name.toString() == name)
+    const foundName = names.find(n => n.name === name)
 
     const handleEditClick = (nameDetail: IName) => {
         navigate(`/name/edit/${nameDetail.name}`)
@@ -35,10 +44,10 @@ export default function NamePage() {
                         <h1>{foundName.name}</h1>
 
                         <p>பெயர் ஆங்கிலத்தில் : {foundName.nameInEnglish}</p>
-                        
+                            
                         <p>பாலினம் : {foundName.gender}</p>
                         <p>விளக்கம் : {foundName.description}</p>
-                        
+                            
                         { foundName.origin && <p>தோற்றம் : {foundName.origin}</p>}
                         { foundName.epigraphEvidence && <p>கல்வெட்டுச் சான்று : {foundName.epigraphEvidence}</p>}
                         { foundName.literatureEvidence && <p>இலக்கியச் சான்று : {foundName.literatureEvidence}</p>}
@@ -51,7 +60,6 @@ export default function NamePage() {
                                 <img src={deleteIcon} alt="delete icon" />
                             </Button>
                         </Stack>
-
                     </section>
 
                     <section>

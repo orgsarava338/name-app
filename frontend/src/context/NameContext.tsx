@@ -26,13 +26,39 @@ export default function NameProvider({ children }: IProps) {
     const location = useLocation()
 
   // GET: get all names
-  const { data: names, isLoading: isFetching, error: fetchError } = useQuery({
+  let { data: names, isLoading: isFetching, error: fetchError } = useQuery({
     queryKey: ['names'],
     queryFn: async () => {
       const { data } = await api.get('/name');
+      console.log('loadNames', data.data)
       return data.data;
     },
   });
+
+  // GET : get single name
+  const getNameMutation = useMutation({
+    mutationFn: async (name: string) => {
+      setIsLoading(true)
+      setError('')
+      const { data } = await api.get(`/name/${name}`)
+      return data.data
+    },
+    onSuccess: (newNameData: IName) => {
+      setIsLoading(false)
+
+      queryClient.setQueryData(['names'], (oldData: IName[] | undefined) => {
+        if (!oldData || oldData.length === 0) return [newNameData]; // If no data exists, set it as a new list
+        const updatedData = oldData.map((name) =>
+          name.name === newNameData.name ? { ...name, ...newNameData } : name
+        );
+        return updatedData;
+      });
+    },
+    onError: (error: Error) => {
+      setError(error.message)
+      setIsLoading(false)
+    }
+  })
 
   // POST: Add a new name
   const addNameMutation = useMutation({
@@ -81,6 +107,7 @@ export default function NameProvider({ children }: IProps) {
     }
   });
 
+  const getName = (name: string) => getNameMutation.mutate(name)
   const addName = (nameDetail: IName) => addNameMutation.mutate(nameDetail)
   const updateName = (nameDetail: IName) => updateNameMutation.mutate(nameDetail)
   const deleteName = (name: string) => deleteNameMutation.mutate(name)
@@ -110,7 +137,7 @@ export default function NameProvider({ children }: IProps) {
         isLoading: isFetching || isLoading,
         error: fetchError?.message || error,
 
-        addName, updateName, deleteName,
+        getName, addName, updateName, deleteName,
       }}
     >
       {children}

@@ -11,8 +11,8 @@ nameRouter.get('/', getAllNames);
 nameRouter.get('/:name', getName);
 
 /** ADMIN */
-nameRouter.post('/', verifyToken, authorizeRoles('admin'), createName);
-nameRouter.put('/:name', verifyId, verifyToken, authorizeRoles('admin'), updateName);
-nameRouter.delete('/:name', verifyId, verifyToken, authorizeRoles('admin'), deleteName);
+nameRouter.post('/', createName);
+nameRouter.put('/:name', verifyId, updateName);
+nameRouter.delete('/:name', verifyId, deleteName);
 
 module.exports = nameRouter;

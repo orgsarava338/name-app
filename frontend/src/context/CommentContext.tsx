@@ -27,15 +27,18 @@ export default function CommentProvider({children, nameId}: IProps) {
         queryKey: ['comments'],
         queryFn: async () => {
           const { data } = await api.get(`/comment/${nameId}`);
+          console.log('loadComments', data.data)
           return data.data;
         },
-      });
+    });
 
     const addNewCommentMutation = useMutation({
-        mutationFn: async ({nameId, content}: ICommentRequest) => {
+        mutationFn: async ({ body }: ICommentRequest) => {
             setIsLoading(true)
             setError(null)
-            const { data } = await api.post(`/comment/${nameId}`, content)
+
+            const { data } = await api.post(`/comment/${nameId}`, { body })
+            console.log('addComment', data.data)
             return data.data
         }, 
         onSuccess: () => {
@@ -50,13 +53,10 @@ export default function CommentProvider({children, nameId}: IProps) {
     })
 
     const replyCommentMutation = useMutation({
-        mutationFn: async ({ nameId, commentId, content } : ICommentRequest) => {
+        mutationFn: async ({ commentId, body } : ICommentRequest) => {
+            if(!commentId) throw new Error('commentId required')
             setIsLoading(true)
-            if(!commentId) {
-                setError('commentId must be passed')
-                throw new Error('commentId must be passed')
-            }
-            const { data } = await api.post(`/comment/reply/${commentId}`, {nameId, content})
+            const { data } = await api.post(`/comment/reply/${commentId}`, {nameId, body})
             return data.data
         },
         onSuccess: () => {
@@ -71,13 +71,13 @@ export default function CommentProvider({children, nameId}: IProps) {
     })
 
     const updateCommentMutation = useMutation({
-        mutationFn: async ({ commentId, content } : ICommentRequest) => {
+        mutationFn: async ({ commentId, body } : ICommentRequest) => {
             setIsLoading(true)
             if(!commentId) {
                 setError('commentId must be passed')
                 throw new Error('commentId must be passed')
             }
-            const { data } = await api.put(`/comment/${commentId}`, {content})
+            const { data } = await api.put(`/comment/${commentId}`, {body})
             return data.data
         },
         onSuccess: () => {
@@ -92,7 +92,7 @@ export default function CommentProvider({children, nameId}: IProps) {
     })
 
     const deleteCommentMutation = useMutation({
-        mutationFn: async ({ commentId } : ICommentRequest) => {
+        mutationFn: async (commentId : string) => {
             setIsLoading(true)
             await api.delete(`/comment/${commentId}`)
         },
@@ -108,16 +108,20 @@ export default function CommentProvider({children, nameId}: IProps) {
     })
 
     useEffect(() => {
+        console.log('nameId', nameId)
+    }, [nameId])
+
+    useEffect(() => {
         if(data) setComments(data)
     }, [data]);
 
     const addNewComment = (commentPostRequest: ICommentRequest) => addNewCommentMutation.mutate(commentPostRequest)
     const replyComment = (commentReplyRequest: ICommentRequest) => replyCommentMutation.mutate(commentReplyRequest)
     const updateComment = (commentUpdateRequest: ICommentRequest) => updateCommentMutation.mutate(commentUpdateRequest)
-    const deleteComment = (commentDeleteRequest: ICommentRequest) => deleteCommentMutation.mutate(commentDeleteRequest)
+    const deleteComment = (commentId: string) => deleteCommentMutation.mutate(commentId)
 
     const value: ICommentContext = {
-        comments, 
+        comments: data || comments, 
         isCommentLoading: isFetching || isLoading,
         commentError: fetchError?.message || (error ? error : ''),
         

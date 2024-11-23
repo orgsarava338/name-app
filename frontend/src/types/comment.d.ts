@@ -1,13 +1,17 @@
-interface IComment implements INewComment {
+interface IComment {
     _id?: string
-    content: string
-    replies?: IComment[]
+    body: string
+    user: {
+        username: string
+        email: string
+        _id: string
+    }
+    replies: IComment[],
 }
 
 interface ICommentRequest {
-    nameId: string
     commentId?: string
-    content: string
+    body: string
 }
 
 interface ICommentContext {
@@ -18,5 +22,5 @@ interface ICommentContext {
     addNewComment: (commentPostRequest: ICommentRequest) => void
     replyComment: (commentReplyRequest: ICommentRequest) => void
     updateComment: (commentUpdateRequest: ICommentRequest) => void
-    deleteComment: (commentDeleteRequest: ICommentRequest) => void
+    deleteComment: (commentId: string) => void
 }

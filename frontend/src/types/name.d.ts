@@ -16,6 +16,8 @@ interface INameContext {
     searchNameResults: IName[];
     isLoading: boolean;
     error: string;
+
+    getName: (name: string) => void
     addName: (nameDetail: IName) => void;
     updateName: (nameDetail: IName) => void;
     deleteName: (name: string) => void;

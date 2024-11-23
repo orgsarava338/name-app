@@ -11,6 +11,7 @@ const authRouter = require('./routes/auth.route.js');
 const userRouter = require('./routes/user.route.js');
 const nameRouter = require('./routes/name.route.js');
 const { requestLogging } = require('./middlewares/logging.middleware.js');
+const commentRouter = require('./routes/comment.route.js');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use(session({secret: process.env.SESSION_SECRET, cookie: {maxAge: 60000, sec
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/name', nameRouter);
+app.use('/api/comment', commentRouter)
 
 async function start() {
     await connectToDatabase();
