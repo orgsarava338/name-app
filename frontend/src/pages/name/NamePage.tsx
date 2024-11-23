@@ -10,6 +10,7 @@ import CommentSection from '../../components/comment/CommentSection'
 
 import { useNameContext } from '../../context/NameContext'
 import CommentProvider from '../../context/CommentContext'
+import { Helmet } from 'react-helmet'
 
 export default function NamePage() {
     
@@ -18,10 +19,7 @@ export default function NamePage() {
     const navigate = useNavigate()
     
     useEffect(() => {
-        if(name) {
-            getName(name)
-            document.title = `பெயர் செயலி || பெயர் - ${name} | ${foundName?.nameInEnglish}`
-        }
+        if(name) getName(name)
     }, [name, names])
 
     const foundName = names.find(n => n.name === name)
@@ -37,6 +35,10 @@ export default function NamePage() {
 
     return (
         <Container as='main'>  
+            <Helmet>
+                <title>பெயர் செயலி || பெயர் {foundName ? ` - ${foundName.name} | ${foundName.nameInEnglish}` : ''}</title>
+                <meta name='description' content={foundName?.description || ''}/>
+            </Helmet>
             {!foundName ? <h2>No name found</h2>
                 :
                 <article>

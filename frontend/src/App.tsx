@@ -22,6 +22,7 @@ import NavBar from "./components/Nav"
 import Footer from "./components/Footer"
 import NameProvider from "./context/NameContext"
 import AuthProvider from "./context/AuthContext"
+import { Helmet } from "react-helmet"
 
 export default function App() {
 
@@ -29,6 +30,9 @@ export default function App() {
 
   return (
     <Container>
+        <Helmet>
+          <title>பெயர் செயலி</title>
+        </Helmet>
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <QueryClientProvider client={queryClient}>
             <AuthProvider>

@@ -41,7 +41,7 @@ export default function CommentBox({ comment }: IProps) {
   }
     
   return (
-    <div className="m-3 p-2 border">
+    <div className="border-start p-2">
       <div>
         <Stack direction="horizontal" gap={2}>
           <span>
