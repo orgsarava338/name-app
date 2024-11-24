@@ -32,6 +32,7 @@ const corsOptions = {
 }
 
 /** CONFIGURATIONS */
+app.use(cors(corsOptions));
 app.use(session({
     secret: process.env.SESSION_SECRET, 
     resave: false,
@@ -48,11 +49,9 @@ app.use(session({
     },
 }))
 app.use(lusca.csrf())
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(limitter)
-
 
 /** MIDDLEWARES */
 app.options('*', cors());
