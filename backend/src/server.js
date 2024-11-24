@@ -72,7 +72,7 @@ app.use((req, res, next) => {
     res.cookie("XSRF-TOKEN", req.session._csrf, {
         httpOnly: false, // Make it accessible by the frontend
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'Strict',
     });
 
     next();
