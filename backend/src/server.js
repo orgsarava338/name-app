@@ -61,6 +61,7 @@ app.use((req, res, next) => {
     res.cookie("XSRF-TOKEN", req.session._csrf, {
         httpOnly: false, // Make it accessible by the frontend
         secure: process.env.NODE_ENV === 'prod', // Set secure: true in production (HTTPS)
+        sameSite: 'None', // Necessary for cross-origin requests
     });
 
     next();
