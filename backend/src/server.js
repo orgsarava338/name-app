@@ -34,15 +34,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(limitter)
 app.use(cors({
-    origin: process.env.FRONTEND_BASE_URL,
     credentials: true,
     methods: 'GET, POST, PUT, DELETE',
     allowedHeaders: ['Content-Type', 'X-CSRF-TOKEN'],
-    origin: (origin, callback) => {
-        if (!origin) return callback(null, true); // Allow requests with no origin (like mobile apps, Postman, etc.)
-        if (allowedOrigins.includes(origin)) callback(null, true); // Allow the origin
-        else callback(new Error('Not allowed by CORS')); // Block the origin
-      },
+    origin: allowedOrigins,
 }));
 
 app.use(session({
