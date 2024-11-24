@@ -40,8 +40,16 @@ app.use(session({
     secret: process.env.SESSION_SECRET, 
     resave: false,
     saveUninitialized: true,
-    store: MongoStroe.create({ mongoUrl: process.env.MONGO_DB_URL, ttl: 60 * 60 * 24 /* 24 hour session */, }),
-    cookie: { maxAge: 60 * 60 * 1000 /** 1 hour */, httpOnly: true, secure: process.env.NODE_ENV !== 'local', saneSite: 'strict' },
+    store: MongoStroe.create({
+        mongoUrl: process.env.MONGO_DB_URL, 
+        ttl: 60 * 60, // 1 hour session
+    }),
+    cookie: { 
+        maxAge: 60 * 60 * 1000, // 1 hour 
+        httpOnly: true, 
+        secure: process.env.NODE_ENV !== 'local', 
+        sameSite: 'none' 
+    },
 }))
 
 app.use(lusca.csrf())
@@ -64,7 +72,7 @@ app.use((req, res, next) => {
     if (!req.session._csrf) req.session._csrf = req.csrfToken();
     res.cookie("XSRF-TOKEN", req.session._csrf, {
         httpOnly: false,
-        secure: true,
+        secure: process.env.NODE_ENV !== 'local',
         sameSite: 'none',
     });
 
