@@ -23,31 +23,28 @@ const limitter = rateLimit({
     message: 'requests were crossed the limit 1000 / 15 mins. Please try again sometime'
 })
 
-// const allowedOrigins = [
-//     'https://peyar.netlify.app', 
-//     'https://peyar-dev.netlify.app',
-//     'http://localhost:5173',
-// ];
+const corsOptions = {
+    origin: process.env.FRONTEND_BASE_URL,
+    credentials: true,
+    methods: 'GET, POST, PUT, DELETE',
+    allowedHeaders: ['Content-Type', 'X-CSRF-TOKEN'],
+}
 
 /** CONFIGURATIONS */
 app.use(express.json());
 app.use(cookieParser());
 app.use(limitter)
-app.use(cors({
-    origin: process.env.FRONTEND_BASE_URL,
-    credentials: true,
-    methods: 'GET, POST, PUT, DELETE',
-    allowedHeaders: ['Content-Type', 'X-CSRF-TOKEN'],
-}));
+app.use(cors(corsOptions));
 
 app.use(session({
     secret: process.env.SESSION_SECRET, 
     resave: false,
     saveUninitialized: true,
     store: MongoStroe.create({ mongoUrl: process.env.MONGO_DB_URL, ttl: 60 * 60 * 24 /* 24 hour session */, }),
-    cookie: { maxAge: 60 * 60 * 1000 /** 1 hour */, httpOnly: true, secure: process.env.NODE_ENV === 'prod', },
+    cookie: { maxAge: 60 * 60 * 1000 /** 1 hour */, httpOnly: true, secure: true, saneSite: 'strict' },
 }))
-app.use(lusca.csrf({ csrf: true }))
+
+app.use(lusca.csrf())
 
 /** MIDDLEWARES */
 app.options('*', cors());
@@ -63,29 +60,28 @@ app.use((req, res, next) => {
 
 // CSRF token setup
 app.use((req, res, next) => {
-    if (!req.session._csrf) req.session._csrf = req.csrfToken(); // Store the CSRF token in the session
+    if (!req.session._csrf) req.session._csrf = req.csrfToken();
     res.cookie("XSRF-TOKEN", req.session._csrf, {
-        httpOnly: false, // Make it accessible by the frontend
+        httpOnly: false,
         secure: true,
-        sameSite: 'Strict',
+        sameSite: 'none',
     });
 
     next();
 });
 
-// Cors Check
-app.use((req, res, next) => {
-    const receivedToken = req.headers['x-csrf-token'];
-    const expectedToken = req.session._csrf;
+// app.use((req, res, next) => {
+//     const receivedToken = req.headers['x-csrf-token'];
+//     const expectedToken = req.session._csrf;
 
-    // console.log("Received CSRF Token:", receivedToken);
-    // console.log("Expected CSRF Token:", expectedToken);
+//     console.log("Received CSRF Token:", receivedToken);
+//     console.log("Expected CSRF Token:", expectedToken);
 
-    if (receivedToken !== expectedToken) {
-        return res.status(403).json({ error: "CSRF token mismatch" });
-    }
-    next();
-});
+//     if (receivedToken !== expectedToken) {
+//         return res.status(403).json({ error: "CSRF token mismatch" });
+//     }
+//     next();
+// });
 
 /** ROUTERS */
 app.use('/api/auth', authRouter);
