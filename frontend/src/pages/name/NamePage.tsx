@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import type {Params} from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
 import { Button, Container, Stack } from 'react-bootstrap'
@@ -10,7 +11,6 @@ import CommentSection from '../../components/comment/CommentSection'
 
 import { useNameContext } from '../../context/NameContext'
 import CommentProvider from '../../context/CommentContext'
-import { Helmet } from 'react-helmet'
 
 export default function NamePage() {
     

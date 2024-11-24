@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Container } from "react-bootstrap"
+import { Helmet } from "react-helmet-async"
 
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
@@ -22,7 +23,6 @@ import NavBar from "./components/Nav"
 import Footer from "./components/Footer"
 import NameProvider from "./context/NameContext"
 import AuthProvider from "./context/AuthContext"
-import { Helmet } from "react-helmet"
 
 export default function App() {
 
