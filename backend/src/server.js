@@ -23,21 +23,21 @@ const limitter = rateLimit({
     message: 'requests were crossed the limit 1000 / 15 mins. Please try again sometime'
 })
 
-const allowedOrigins = [
-    'https://peyar.netlify.app', 
-    'https://peyar-dev.netlify.app',
-    'http://localhost:5173'
-];
+// const allowedOrigins = [
+//     'https://peyar.netlify.app', 
+//     'https://peyar-dev.netlify.app',
+//     'http://localhost:5173',
+// ];
 
 /** CONFIGURATIONS */
 app.use(express.json());
 app.use(cookieParser());
 app.use(limitter)
 app.use(cors({
+    origin: process.env.FRONTEND_BASE_URL,
     credentials: true,
     methods: 'GET, POST, PUT, DELETE',
     allowedHeaders: ['Content-Type', 'X-CSRF-TOKEN'],
-    origin: allowedOrigins,
 }));
 
 app.use(session({
