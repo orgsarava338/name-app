@@ -28,14 +28,10 @@ const corsOptions = {
     credentials: true,
     methods: 'GET, POST, PUT, DELETE',
     allowedHeaders: ['Content-Type', 'X-CSRF-TOKEN'],
+    exposeHeaders: ['Set-Cookie'],
 }
 
 /** CONFIGURATIONS */
-app.use(express.json());
-app.use(cookieParser());
-app.use(limitter)
-app.use(cors(corsOptions));
-
 app.use(session({
     secret: process.env.SESSION_SECRET, 
     resave: false,
@@ -51,8 +47,12 @@ app.use(session({
         sameSite: 'none' 
     },
 }))
-
 app.use(lusca.csrf())
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(cookieParser());
+app.use(limitter)
+
 
 /** MIDDLEWARES */
 app.options('*', cors());
