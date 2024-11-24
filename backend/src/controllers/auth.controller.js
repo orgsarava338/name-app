@@ -70,7 +70,7 @@ exports.login = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error)
+        console.error(error)
         res.status(400).json({message: 'user not able to login', error: error.message});
     }
 }

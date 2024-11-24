@@ -34,7 +34,7 @@ exports.getAllCommentsByNameId = async (req, res) => {
         res.json({ data: comments });
 
     } catch (error) {
-        console.log(error.message)
+        console.error(error.message)
         res.status(500).json({ message: 'Comments not loaded', error: error.message });
     }
 };
@@ -51,7 +51,7 @@ exports.addComment = async (req, res) => {
 
         res.status(201).json({data: comment})
     } catch (error) {
-        console.log(error)
+        console.error(error)
         res.status(500).json({message: 'comment not added', error: error.message})
     }
 }
@@ -76,7 +76,7 @@ exports.updateComment = async (req, res) => {
         const { commentId } = req.params;
         const { body } = req.body;
 
-        const comment = await Comment.findByIdAndUpdate(commentId, { body }, { new: true })
+        const comment = await Comment.findByIdAndUpdate(commentId, { $set: { body } }, { new: true })
         if(!comment) res.status(404).json({message: 'comment not found to update'})
 
         res.json({data: comment})
