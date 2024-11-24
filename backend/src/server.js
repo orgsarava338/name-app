@@ -67,6 +67,20 @@ app.use((req, res, next) => {
     next();
 });
 
+// testing purpose
+app.use((req, res, next) => {
+    const receivedToken = req.headers['x-csrf-token'];
+    const expectedToken = req.session._csrf;
+
+    console.log("Received CSRF Token:", receivedToken);
+    console.log("Expected CSRF Token:", expectedToken);
+
+    if (receivedToken !== expectedToken) {
+        return res.status(403).json({ error: "CSRF token mismatch" });
+    }
+    next();
+});
+
 
 /** ROUTERS */
 app.use('/api/auth', authRouter);

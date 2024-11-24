@@ -13,6 +13,7 @@ api.interceptors.request.use((config) => {
   
     if (csrfToken) {
         const decodedCsrfToken = decodeURIComponent(csrfToken);
+        console.log(decodedCsrfToken)
         config.headers["X-CSRF-TOKEN"] = decodedCsrfToken;
     }
 
