@@ -9,9 +9,9 @@ const userRouter = express.Router();
 userRouter.use(verifyToken);
 
 /** ADMIN */
-userRouter.post('/', authorizeRoles('ADMIN'), createUser);
-userRouter.get('/', authorizeRoles('ADMIN'), getAllUsers);
-userRouter.get('/:username', authorizeRoles('ADMIN'), getUser);
-userRouter.delete('/:username', authorizeRoles('ADMIN'), deleteUser);
+userRouter.post('/', createUser);
+userRouter.get('/', getAllUsers);
+userRouter.get('/:username', getUser);
+userRouter.delete('/:username', deleteUser);
 
 module.exports = userRouter;

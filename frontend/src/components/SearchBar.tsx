@@ -1,11 +1,11 @@
-import { useContext, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 
-import { NameContext } from "../context/NameContext"
+import { useNameContext } from "../context/NameContext"
 import { Form, FormControl, InputGroup } from "react-bootstrap"
 
 export default function SearchBar() {
 
-  const {search, setSearch} = useContext(NameContext)
+  const {search, setSearch} = useNameContext()
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {

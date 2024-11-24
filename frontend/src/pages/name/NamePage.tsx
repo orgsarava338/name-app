@@ -1,51 +1,55 @@
-import { useContext } from 'react'
+import { useEffect } from 'react'
 import type {Params} from 'react-router-dom'
 import { useNavigate, useParams } from "react-router-dom"
+import { Button, Container, Stack } from 'react-bootstrap'
 
 import deleteIcon from '../../assets/icons/delete.svg'
 import editIcon from '../../assets/icons/edit.svg'
 
-import Error from '../Error'
+import CommentSection from '../../components/comment/CommentSection'
 
-import { NameContext } from '../../context/NameContext'
-import { Button, Container, Stack } from 'react-bootstrap'
+import { useNameContext } from '../../context/NameContext'
+import CommentProvider from '../../context/CommentContext'
+import { Helmet } from 'react-helmet'
 
 export default function NamePage() {
     
-    const { names, handleDelete, setNameDetail } = useContext(NameContext)
+    const { searchNameResults: names, getName, deleteName } = useNameContext()
     const { name } : Params = useParams();
     const navigate = useNavigate()
+    
+    useEffect(() => {
+        if(name) getName(name)
+    }, [name, names])
 
-    const foundName: IName | undefined = names.find((n:IName) => n.name.toString() == name)
+    const foundName = names.find(n => n.name === name)
 
     const handleEditClick = (nameDetail: IName) => {
         navigate(`/name/edit/${nameDetail.name}`)
-        setNameDetail({...nameDetail})
     }
 
     const handleDeleteClick = (nameDetail: IName) => {
+        deleteName(nameDetail.name)
         navigate('/')
-        handleDelete(nameDetail.name)
     }
 
     return (
         <Container as='main'>  
-            {!foundName ? 
-            <Error code='404'>
-                <p>Name not found</p>
-            </Error> :
-
-                <section>
-                    <article>
+            <Helmet>
+                <title>பெயர் செயலி || பெயர் {foundName ? ` - ${foundName.name} | ${foundName.nameInEnglish}` : ''}</title>
+                <meta name='description' content={foundName?.description || ''}/>
+            </Helmet>
+            {!foundName ? <h2>No name found</h2>
+                :
+                <article>
+                    <section>
                         <h1>{foundName.name}</h1>
 
                         <p>பெயர் ஆங்கிலத்தில் : {foundName.nameInEnglish}</p>
-                        
-                        {foundName.image && <img src={foundName.image} alt={`${foundName.name} name's related image`}/>}
-
+                            
                         <p>பாலினம் : {foundName.gender}</p>
                         <p>விளக்கம் : {foundName.description}</p>
-                        
+                            
                         { foundName.origin && <p>தோற்றம் : {foundName.origin}</p>}
                         { foundName.epigraphEvidence && <p>கல்வெட்டுச் சான்று : {foundName.epigraphEvidence}</p>}
                         { foundName.literatureEvidence && <p>இலக்கியச் சான்று : {foundName.literatureEvidence}</p>}
@@ -58,9 +62,14 @@ export default function NamePage() {
                                 <img src={deleteIcon} alt="delete icon" />
                             </Button>
                         </Stack>
+                    </section>
 
-                    </article>
-                </section>
+                    <section>
+                        <CommentProvider nameId={foundName._id}>
+                            <CommentSection />
+                        </CommentProvider>
+                    </section>
+                </article>
             }
         </Container>
     )

@@ -1,20 +1,21 @@
-import { useContext, useEffect } from "react"
-import { Form, Button, Container, FormControl, FormGroup, FormLabel } from "react-bootstrap"
+import { useState } from "react"
+import { Form, Button, Container, FormControl, FormGroup, FormLabel, Alert } from "react-bootstrap"
 
-import Name from "../../utils/Name"
-
-import { NameContext } from "../../context/NameContext"
+import { useNameContext } from "../../context/NameContext"
 
 export default function NameAdd() {
 
-    const { handleAdd, nameDetail, setNameDetail } = useContext(NameContext)
+    const [nameDetail, setNameDetail] = useState<IName | null>(null)
 
-    useEffect(() => {
-        if(!nameDetail) setNameDetail(new Name())
-    }, [nameDetail, setNameDetail])
+    const { addName, isLoading, error } = useNameContext()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setNameDetail({...nameDetail, [e.target.name] : e.target.value })
+        setNameDetail({...nameDetail, [e.target.name] : e.target.value } as IName)
+    }
+
+    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if(nameDetail) addName(nameDetail)
     }
 
     return (
@@ -23,51 +24,73 @@ export default function NameAdd() {
                 <h1>Add new Name</h1>
             </header>
 
-            <Form onSubmit={handleAdd} >
+            {error && <Alert variant="danger">{error}</Alert>}
+
+            <Form onSubmit={handleSubmit} >
 
                 <FormGroup>
                     <FormLabel htmlFor="name">Name : </FormLabel>
                     <FormControl type="text" name="name" id="name" 
-                        value={nameDetail.name || ''} onChange={handleChange}
+                        value={nameDetail ? nameDetail.name : ''} onChange={handleChange}
                     />
                 </FormGroup>
 
                 <FormGroup>
                     <FormLabel htmlFor="nameInEnglish">Name in english : </FormLabel>
                     <FormControl type="text" name="nameInEnglish" id="nameInEnglish" 
-                        value={nameDetail.nameInEnglish || ''} onChange={handleChange}
+                        value={nameDetail ? nameDetail.nameInEnglish : ''} onChange={handleChange}
                     />
                 </FormGroup>
 
                 <FormGroup>
                     <FormLabel htmlFor="gender">Gender : </FormLabel>
-                    <FormControl type="text" name="gender" id="gender" 
-                        value={nameDetail.gender || ''} onChange={handleChange}
+                    <span className="mb-3">
+                        {['ஆண்', 'பெண்', 'common'].map(gender => (
+                            <span key={`gender-${gender}`}>
+                                <Form.Check.Input
+                                    type="radio"
+                                    className="mx-3" 
+                                    name="gender"
+                                    id={`gender-${gender}`}  
+                                    checked={nameDetail?.gender === gender}
+                                    value={gender}
+                                    onChange={handleChange} 
+                                />
+                                <Form.Check.Label htmlFor={`gender-${gender}`}>{gender}</Form.Check.Label>
+                            </span>
+                        ))}
+                    </span>
+                </FormGroup>
+
+                <FormGroup>
+                    <FormLabel htmlFor="origin">Origin : </FormLabel>
+                    <FormControl as='textarea' name="origin" id="origin" 
+                        value={nameDetail ? nameDetail.origin || '' : ''} onChange={handleChange}
                     />
                 </FormGroup>
 
                 <FormGroup>
                     <FormLabel htmlFor="description">Description : </FormLabel>
                     <FormControl as='textarea' name="description" id="description" 
-                        value={nameDetail.description || ''} onChange={handleChange}
+                        value={nameDetail ? nameDetail.description : ''} onChange={handleChange}
                     />
                 </FormGroup>
 
                 <FormGroup>
                     <FormLabel htmlFor="literatureEvidence">Literature Evidence : </FormLabel>
                     <FormControl as='textarea' name="literatureEvidence" id="literatureEvidence" 
-                        value={nameDetail.literatureEvidence || ''} onChange={handleChange}
+                        value={nameDetail ? nameDetail.literatureEvidence || '' : ''} onChange={handleChange}
                     />
                 </FormGroup>
 
                 <FormGroup>
                     <FormLabel htmlFor="epigraphEvidence">Epigraph Evidence : </FormLabel>
                     <FormControl as='textarea' name="epigraphEvidence" id="epigraphEvidence" 
-                        value={nameDetail.epigraphEvidence || ''} onChange={handleChange}
+                        value={nameDetail ? nameDetail.epigraphEvidence || '' : ''} onChange={handleChange}
                     />
                 </FormGroup>
 
-                <Button type="submit">submit</Button>
+                <Button type="submit" active={!isLoading}>{isLoading ? 'saving...' : 'submit'}</Button>
             </Form>
         </Container>
     )

@@ -1,17 +1,16 @@
-import { useContext } from "react";
 import { Button, Container, Col, Stack, Row } from "react-bootstrap";
 
-import { NameContext } from "../context/NameContext";
+import { useNameContext } from "../context/NameContext";
 
 const uyirgal = ['அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ'];
 const meigal = ['க', 'ங', 'ச', 'ஞ', 'ட', 'ண', 'த', 'ந', 'ப',
                  'ம', 'ய', 'ர', 'ல', 'வ', 'ழ', 'ள', 'ற', 'ன'];
 
 export default function Letters() {
-    const { names, setSearchResults } = useContext(NameContext);
+    const { setSearch } = useNameContext()
 
     const handleClick = (letter: string) => {
-        setSearchResults(names.filter(n => n.name.toLowerCase().startsWith(letter.toLowerCase())))
+        setSearch(letter.toLocaleLowerCase('ta'))
     }
 
     return (

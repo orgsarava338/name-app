@@ -3,12 +3,11 @@ import Letters from "../components/Letters";
 
 import useWindowSize from "../hooks/useWindowSize";
 import IncreasingNumber from "../components/IncreasingNumber";
-import { useContext } from "react";
-import { NameContext } from "../context/NameContext";
+import { useNameContext } from "../context/NameContext";
 
 export default function Home() {
 
-    const { names } = useContext(NameContext)
+    const { searchNameResults: names } = useNameContext()
     const { width } = useWindowSize()
 
     return (

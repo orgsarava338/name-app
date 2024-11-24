@@ -10,6 +10,6 @@ authRouter.post('/register', register);
 authRouter.post('/login', login);
 
 /** USER */
-authRouter.post('/logoff', verifyToken, logoff);
+authRouter.post('/logoff', logoff);
 
 module.exports = authRouter;

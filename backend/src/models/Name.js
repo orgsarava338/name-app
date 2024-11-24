@@ -30,9 +30,11 @@ const nameSchema = new mongoose.Schema({
         type: String
     },
 
-    image : {
-        type: String
-    }
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+        default: [],
+    }]
 
 }, {timestamps: true});
 
