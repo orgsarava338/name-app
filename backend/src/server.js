@@ -71,8 +71,8 @@ app.use((req, res, next) => {
     if (!req.session._csrf) req.session._csrf = req.csrfToken(); // Store the CSRF token in the session
     res.cookie("XSRF-TOKEN", req.session._csrf, {
         httpOnly: false, // Make it accessible by the frontend
-        secure: process.env.NODE_ENV !== 'local', // Set secure: true in production (HTTPS)
-        sameSite: 'none',
+        secure: true,
+        sameSite: 'lax',
     });
 
     next();
