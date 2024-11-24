@@ -38,7 +38,6 @@ export default function CommentProvider({children, nameId}: IProps) {
             setError(null)
 
             const { data } = await api.post(`/comment/${nameId}`, { body })
-            console.log('addComment', data.data)
             return data.data
         }, 
         onSuccess: () => {
@@ -106,10 +105,6 @@ export default function CommentProvider({children, nameId}: IProps) {
             setIsLoading(false)
         }
     })
-
-    useEffect(() => {
-        console.log('nameId', nameId)
-    }, [nameId])
 
     useEffect(() => {
         if(data) setComments(data)
