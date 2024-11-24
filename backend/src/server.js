@@ -23,6 +23,12 @@ const limitter = rateLimit({
     message: 'requests were crossed the limit 1000 / 15 mins. Please try again sometime'
 })
 
+const allowedOrigins = [
+    'https://peyar.netlify.app', 
+    'https://peyar-dev.netlify.app',
+    'http://localhost:5173'
+];
+
 /** CONFIGURATIONS */
 app.use(express.json());
 app.use(cookieParser());
@@ -31,8 +37,14 @@ app.use(cors({
     origin: process.env.FRONTEND_BASE_URL,
     credentials: true,
     methods: 'GET, POST, PUT, DELETE',
-    allowedHeaders: ['Content-Type', 'X-CSRF-TOKEN']
+    allowedHeaders: ['Content-Type', 'X-CSRF-TOKEN'],
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true); // Allow requests with no origin (like mobile apps, Postman, etc.)
+        if (allowedOrigins.includes(origin)) callback(null, true); // Allow the origin
+        else callback(new Error('Not allowed by CORS')); // Block the origin
+      },
 }));
+
 app.use(session({
     secret: process.env.SESSION_SECRET, 
     resave: false,
@@ -57,30 +69,28 @@ app.use((req, res, next) => {
 // CSRF token setup
 app.use((req, res, next) => {
     if (!req.session._csrf) req.session._csrf = req.csrfToken(); // Store the CSRF token in the session
-    
     res.cookie("XSRF-TOKEN", req.session._csrf, {
         httpOnly: false, // Make it accessible by the frontend
-        secure: process.env.NODE_ENV === 'prod', // Set secure: true in production (HTTPS)
-        sameSite: 'None', // Necessary for cross-origin requests
+        secure: process.env.NODE_ENV !== 'local', // Set secure: true in production (HTTPS)
+        sameSite: 'none',
     });
 
     next();
 });
 
-// testing purpose
+// Cors Check
 app.use((req, res, next) => {
     const receivedToken = req.headers['x-csrf-token'];
     const expectedToken = req.session._csrf;
 
-    console.log("Received CSRF Token:", receivedToken);
-    console.log("Expected CSRF Token:", expectedToken);
+    // console.log("Received CSRF Token:", receivedToken);
+    // console.log("Expected CSRF Token:", expectedToken);
 
     if (receivedToken !== expectedToken) {
         return res.status(403).json({ error: "CSRF token mismatch" });
     }
     next();
 });
-
 
 /** ROUTERS */
 app.use('/api/auth', authRouter);

@@ -6,16 +6,13 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
+
     const csrfToken = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("XSRF-TOKEN"))
-      ?.split("=")[1];
-  
-    if (csrfToken) {
-        const decodedCsrfToken = decodeURIComponent(csrfToken);
-        console.log(decodedCsrfToken)
-        config.headers["X-CSRF-TOKEN"] = decodedCsrfToken;
-    }
+        .split("; ")
+        .find((row) => row.startsWith("XSRF-TOKEN"))
+        ?.split("=")[1];
+
+    if (csrfToken) config.headers["X-CSRF-TOKEN"] = decodeURIComponent(csrfToken);  // Make sure to decode the token
 
     return config
 })
