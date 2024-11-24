@@ -29,9 +29,9 @@ export default function NameProvider({ children }: IProps) {
   let { data: names, isLoading: isFetching, error: fetchError } = useQuery({
     queryKey: ['names'],
     queryFn: async () => {
-      const response = await api.get('/name');
-      console.log('loadNames', response)
-      return response.data.data || [];
+      const { data } = await api.get('/name');
+      console.log('loadNames', data.data)
+      return data.data;
     },
   });
 

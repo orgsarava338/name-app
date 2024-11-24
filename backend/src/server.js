@@ -41,7 +41,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: MongoStroe.create({ mongoUrl: process.env.MONGO_DB_URL, ttl: 60 * 60 * 24 /* 24 hour session */, }),
-    cookie: { maxAge: 60 * 60 * 1000 /** 1 hour */, httpOnly: true, secure: true, saneSite: 'strict' },
+    cookie: { maxAge: 60 * 60 * 1000 /** 1 hour */, httpOnly: true, secure: process.env.NODE_ENV !== 'local', saneSite: 'strict' },
 }))
 
 app.use(lusca.csrf())
@@ -55,6 +55,7 @@ app.use((req, res, next) => {
         req.session.views = 0;
     }
     req.session.views++;
+
     next();
 });
 
@@ -69,19 +70,6 @@ app.use((req, res, next) => {
 
     next();
 });
-
-// app.use((req, res, next) => {
-//     const receivedToken = req.headers['x-csrf-token'];
-//     const expectedToken = req.session._csrf;
-
-//     console.log("Received CSRF Token:", receivedToken);
-//     console.log("Expected CSRF Token:", expectedToken);
-
-//     if (receivedToken !== expectedToken) {
-//         return res.status(403).json({ error: "CSRF token mismatch" });
-//     }
-//     next();
-// });
 
 /** ROUTERS */
 app.use('/api/auth', authRouter);

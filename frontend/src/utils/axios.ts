@@ -12,7 +12,7 @@ api.interceptors.request.use((config) => {
         .find((row) => row.startsWith("XSRF-TOKEN"))
         ?.split("=")[1];
 
-    if (csrfToken) config.headers["X-CSRF-TOKEN"] = decodeURIComponent(csrfToken);  // Make sure to decode the token
+    if (csrfToken) config.headers["X-CSRF-TOKEN"] = decodeURIComponent(csrfToken);
 
     return config
 })
