@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "build": "bun run ./bin/build.ts",
-    "dev": "bun run --watch src/main.tsx",
+    "local": "bun run --env-file=.env.local --watch src/main.tsx",
+    "dev": "bun run --env-file=.env.dev --watch src/main.tsx",
     "prod": "bun run ./dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
