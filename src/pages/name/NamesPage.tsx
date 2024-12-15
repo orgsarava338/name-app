@@ -3,7 +3,7 @@ import { Html } from "@elysiajs/html";
 import { IName } from "../../types/name";
 
 import BaseHtml from "../../components/BaseHtml";
-import NameCard from "../../components/NameCard";
+import NameCard from "../../components/name/NameCard";
 
 interface IProps {
   names: IName[];

@@ -1,5 +1,5 @@
 import { Html } from "@elysiajs/html";
-import { IName } from "../types/name";
+import { IName } from "../../types/name";
 
 interface IProps {
   name: IName;

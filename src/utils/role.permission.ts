@@ -1,4 +1,4 @@
-import { Permission, Role } from "../types/role";
+import { Permission, Role } from "../types/enums";
 
 export const RolePermissions: Record<Role, Permission[]> = {
   [Role.USER]: [Permission.comment],
