@@ -16,12 +16,12 @@ async function startApplication() {
   await connectToDataBase();
 
   const app = new Elysia()
-    .use(staticPlugin())
     .use(html())
+    .use(staticPlugin())
 
     .use(apiRoutes)
 
-    .get("/", () => <HomePage />)
+    .get("/", () => <HomePage />,)
     .get("/about", () => <AboutPage />)
     .get("/contact", () => <ContactPage />)
 
