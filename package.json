@@ -1,23 +1,22 @@
 {
   "name": "name-app",
-  "version": "1.0.0",
-  "description": "name app",
-  "main": "index.js",
+  "version": "0.0.1",
   "scripts": {
-    "backend": "cd backend && npm run dev",
-    "frontend": "cd frontend && npm run dev"
+    "build": "bun run ./bin/build.ts",
+    "local": "bun run --env-file=.env.local --watch src/main.tsx",
+    "dev": "bun run --env-file=.env.dev --watch src/main.tsx",
+    "prod": "bun run ./dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/orgsarava338/name-app.git"
-  },
-  "author": "sarava338",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/orgsarava338/name-app/issues"
-  },
-  "homepage": "https://peyar.netlify.app",
   "dependencies": {
+    "@elysiajs/html": "^1.1.1",
+    "@elysiajs/static": "^1.1.1",
+    "elysia": "latest",
+    "mongoose": "^8.8.3",
     "name-app": "file:"
-  }
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/main.tsx"
 }
