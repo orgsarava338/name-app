@@ -2,18 +2,22 @@ import mongoose from "mongoose";
 import { Role } from "../../types/enums";
 
 export interface IMUser extends mongoose.Document {
-  username: string;
-  email: string;
-  password: string;
+  google_id: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
   role: Role;
   active: boolean;
 }
 
 export const userSchema = new mongoose.Schema<IMUser>(
   {
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    google_id: { type: String, unique: true },
+    name: { type: String, required: true },
+    firstName: { type: String },
+    lastName: { type: String },
+    imageUrl: { type: String, required: true },
     role: { type: String, enum: Object.values(Role), default: Role.USER },
     active: { type: Boolean, default: true },
   },

@@ -2,6 +2,7 @@ import { Name } from "../db/models";
 import { IName } from "../types/name";
 
 export async function createName(name: IName) {
+  console.log(name)
   return await Name.create(name);
 }
 

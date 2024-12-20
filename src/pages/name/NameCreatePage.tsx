@@ -60,7 +60,7 @@ export default async function NameCreatePage({}: IProps) {
           />
         </div>
 
-        <div>
+        {/* <div>
           <label for="categories">Categories:</label>
           <input
             type="text"
@@ -88,7 +88,7 @@ export default async function NameCreatePage({}: IProps) {
             hx-params="{'name': this.value}"
           />
           <div id="tags-suggestions"></div>
-        </div>
+        </div> */}
 
         <button type="submit">submit</button>
       </form>

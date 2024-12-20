@@ -44,3 +44,5 @@ package-lock.json
 
 # build dir
 dist
+
+client_secret_*.json

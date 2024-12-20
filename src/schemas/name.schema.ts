@@ -10,8 +10,8 @@ export const nameCreateSchema = {
     description: t.String(),
     literatureEvidence: t.Optional(t.String()),
     epigraphEvidence: t.Optional(t.String()),
-    tags: t.Optional(t.Array(t.String())),
-    categories: t.Optional(t.Array(t.String())),
+    tags: t.Optional(t.String()),
+    categories: t.Optional(t.String()),
   }),
 
   store: t.Object({

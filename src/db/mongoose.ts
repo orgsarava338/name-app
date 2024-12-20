@@ -7,6 +7,11 @@ export default async function connectToDataBase() {
     try {
       await mongoose.connect(uri);
       console.log(`MongoDB connected at attempt ${attempt + 1}`);
+      const connectionProperties = mongoose.connection;
+      console.log(`MongoDB connection properties:
+        Host: ${connectionProperties.host}
+        Port: ${connectionProperties.port}
+        Database Name: ${connectionProperties.name}`);
       break;
     } catch (error) {
       if (attempt === 4) process.exit(1);

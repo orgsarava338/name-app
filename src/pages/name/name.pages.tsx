@@ -1,17 +1,18 @@
 import Elysia from "elysia";
 import { Html } from "@elysiajs/html";
 
+import { IName } from "../../types/name";
+
 import {
   getAllNames,
   getNameByname,
   getNameToEdit,
-} from "../controllers/name.controller";
+} from "../../controllers/name.controller";
 
-import NamePage from "./name/NamePage";
-import NamesPage from "./name/NamesPage";
-import NameCreatePage from "./name/NameCreatePage";
-import NameEditPage from "./name/NameEditPage";
-import { IName } from "../types/name";
+import NamePage from "./NamePage";
+import NamesPage from "./NamesPage";
+import NameCreatePage from "./NameCreatePage";
+import NameEditPage from "./NameEditPage";
 
 export default function namePages(app: Elysia) {
   app.group("/name", (route) =>

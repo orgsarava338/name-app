@@ -10,8 +10,10 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 
-import namePages from "./pages/name.pages";
 import HealthCheckPage from "./pages/HealthCheckPage";
+
+import authPages from "./pages/auth/auth.pages";
+import namePages from "./pages/name/name.pages";
 
 async function startApplication() {
   await connectToDataBase();
@@ -27,6 +29,7 @@ async function startApplication() {
     .get("/contact", (ctx) => ctx.html(<ContactPage />))
     .get("/healthz", (ctx) => ctx.html(<HealthCheckPage />))
 
+    .use(authPages)
     .use(namePages);
 
   app.listen(Bun.env.PORT!, () => {

@@ -11,9 +11,12 @@
   "dependencies": {
     "@elysiajs/html": "^1.1.1",
     "@elysiajs/static": "^1.1.1",
+    "arctic": "^2.3.3",
     "elysia": "latest",
+    "lucia": "^3.2.2",
     "mongoose": "^8.8.3",
-    "name-app": "file:"
+    "name-app": "file:",
+    "oslo": "^1.2.1"
   },
   "devDependencies": {
     "bun-types": "latest"
